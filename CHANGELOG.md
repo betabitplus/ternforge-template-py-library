@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.1 — 2026-08-07
+
+- Pin generated projects, host tooling, CI, and devcontainers to exact `uv 0.12.0`.
+- Update the immutable component snapshot to `v1.6.3`.
+- Pin template and generated release orchestration to `ternforge-infra-ci v1.6.1`.
+- Preserve standalone tooling dependency boundaries and executable generated checkers.
+- Keep generated utility scripts self-contained and prove create/update/build acceptance.
+
 ## 1.2.0 — 2026-08-06
 
 - Update the released component snapshot to `v1.6.0`.
