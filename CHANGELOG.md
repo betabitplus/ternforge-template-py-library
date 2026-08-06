@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 — 2026-08-06
+
+- Update the released component snapshot to `v1.6.0`.
+- Pin generated CI and release callers to `ternforge-infra-ci v1.6.0`.
+- Add explicit standalone-tooling lifecycle answers and backward-compatible update ownership.
+- Expand protected acceptance to ordinary and standalone-tooling renders.
+
 ## 1.1.0 — 2026-08-06
 
 - Update the released component snapshot to `v1.5.0`.
