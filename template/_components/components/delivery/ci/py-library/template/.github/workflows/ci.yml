@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  ci:
+    name: ci
+    uses: betabitplus/ternforge-infra-ci/.github/workflows/python-library.yml@a669bddb811a69dd6533acc2cae0d30ced415337 # v1.5.1
+    with:
+      python-version: "3.13"
+      policy-command: py-lib-policy check
+      runtime-audit-exclude-package: py-lib-runtime

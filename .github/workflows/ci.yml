@@ -1,0 +1,83 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  required:
+    name: ci / required
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate pull request title
+        if: github.event_name == 'pull_request'
+        uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            build
+            chore
+            ci
+            docs
+            feat
+            fix
+            perf
+            refactor
+            revert
+            test
+
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.12.0"
+          enable-cache: false
+
+      - name: Install exact Vendir
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error \
+            --output "$RUNNER_TEMP/vendir" \
+            https://github.com/carvel-dev/vendir/releases/download/v0.46.0/vendir-linux-amd64
+          echo "878f3c77cae21b9b63d0ea6c11454c0008d41652d2eb3d1844fdcf69cca6ae9e  $RUNNER_TEMP/vendir" | sha256sum --check
+          chmod +x "$RUNNER_TEMP/vendir"
+          "$RUNNER_TEMP/vendir" --version
+
+      - name: Verify declared component snapshot
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/vendir" sync
+          git diff --exit-code -- vendir.lock.yml template/_components
+          test -z "$(find template/_components -type l -print -quit)"
+          test ! -e template/_components/.git
+          grep -F 'legalPaths: []' vendir.yml
+          if grep -F 'newRootPath:' vendir.yml; then
+            echo 'newRootPath is not part of the accepted Vendir contract' >&2
+            exit 1
+          fi
+
+      - name: Verify complete generated Python product
+        env:
+          TEMPLATE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+          TEMPLATE_URL: https://github.com/${{ github.repository }}.git
+        run: scripts/accept-template.sh
+
+      - name: Verify repository files
+        run: |
+          set -euo pipefail
+          git diff --check
+          python -m json.tool release-please-config.json >/dev/null
+          python -m json.tool .release-please-manifest.json >/dev/null
+          test -x scripts/accept-template.sh
