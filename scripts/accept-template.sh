@@ -4,7 +4,9 @@ set -euo pipefail
 : "${TEMPLATE_URL:?TEMPLATE_URL is required}"
 : "${TEMPLATE_REF:?TEMPLATE_REF is required}"
 
-work_root="${RUNNER_TEMP:-$(mktemp -d)}/ternforge-python-template-acceptance"
+temp_base="${RUNNER_TEMP:-$(mktemp -d)}"
+temp_base="$(cd "$temp_base" && pwd -P)"
+work_root="$temp_base/ternforge-python-template-acceptance"
 rm -rf "$work_root"
 mkdir -p "$work_root"
 trap 'rm -rf "$work_root"' EXIT
@@ -82,7 +84,7 @@ grep -F 'policy-command: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'preserve_pyproject_on_update: true' "$tooling_target/.copier-answers.yml"
 
-python - "$product_target" <<'PY'
+uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
 
 import json
