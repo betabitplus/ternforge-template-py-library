@@ -83,6 +83,16 @@ grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.gith
 grep -F 'policy-command: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'preserve_pyproject_on_update: true' "$tooling_target/.copier-answers.yml"
+grep -F 'entry: uv run py-lib-policy check' "$default_target/.pre-commit-config.yaml"
+grep -F -- '--no-emit-package py-lib-runtime' "$default_target/.pre-commit-config.yaml"
+if grep -F 'entry: uv run py-lib-policy check' "$tooling_target/.pre-commit-config.yaml"; then
+  echo 'standalone tooling render must not depend on py-lib-policy' >&2
+  exit 1
+fi
+if grep -F -- '--no-emit-package' "$tooling_target/.pre-commit-config.yaml"; then
+  echo 'standalone tooling render must not hardcode an audit exclusion' >&2
+  exit 1
+fi
 
 uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
