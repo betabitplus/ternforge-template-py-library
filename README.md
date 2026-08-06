@@ -16,3 +16,6 @@ devcontainer.
 
 The committed `template/_components` directory is a Vendir-managed snapshot.
 Generated repositories never contain `_components`.
+
+Every pull request renders a real library and executes the complete locked
+quality, security, test, audit, build, metadata, and isolated-install gate.
