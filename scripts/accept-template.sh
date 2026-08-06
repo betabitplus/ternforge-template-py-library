@@ -83,6 +83,8 @@ grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.gith
 grep -F 'policy-command: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'preserve_pyproject_on_update: true' "$tooling_target/.copier-answers.yml"
+grep -F 'required-version = "==0.12.0"' "$default_target/pyproject.toml"
+grep -F 'required-version = "==0.12.0"' "$tooling_target/pyproject.toml"
 grep -F 'entry: uv run py-lib-policy check' "$default_target/.pre-commit-config.yaml"
 grep -F -- '--no-emit-package py-lib-runtime' "$default_target/.pre-commit-config.yaml"
 if grep -F 'entry: uv run py-lib-policy check' "$tooling_target/.pre-commit-config.yaml"; then
@@ -110,6 +112,7 @@ assert manifest["."] == "0.1.0"
 assert pyproject["project"]["version"] == manifest["."]
 assert pyproject["project"]["name"] == "acceptance-lib"
 assert pyproject["tool"]["ternforge"]["primary_package"] == "acceptance_lib"
+assert pyproject["tool"]["uv"]["required-version"] == "==0.12.0"
 PY
 
 git -C "$product_target" init --initial-branch=main
@@ -124,6 +127,7 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
 
 (
   cd "$product_target"
+  uv --version | grep -F 'uv 0.12.0'
   uv sync --locked --all-groups --python 3.13
   uv run --no-sync ruff check .
   uv run --no-sync ruff format --check .
