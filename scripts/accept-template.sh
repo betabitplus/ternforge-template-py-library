@@ -4,13 +4,16 @@ set -euo pipefail
 : "${TEMPLATE_URL:?TEMPLATE_URL is required}"
 : "${TEMPLATE_REF:?TEMPLATE_REF is required}"
 
-work_root="${RUNNER_TEMP:-$(mktemp -d)}/ternforge-python-template-acceptance"
+temp_base="${RUNNER_TEMP:-$(mktemp -d)}"
+temp_base="$(cd "$temp_base" && pwd -P)"
+work_root="$temp_base/ternforge-python-template-acceptance"
 rm -rf "$work_root"
 mkdir -p "$work_root"
 trap 'rm -rf "$work_root"' EXIT
 
 default_target="$work_root/default"
 product_target="$work_root/product"
+tooling_target="$work_root/tooling"
 
 uvx --from copier==9.17.0 copier copy \
   --quiet \
@@ -35,7 +38,26 @@ uvx --from copier==9.17.0 copier copy \
   "$TEMPLATE_URL" \
   "$product_target"
 
-for target in "$default_target" "$product_target"; do
+uvx --from copier==9.17.0 copier copy \
+  --quiet \
+  --defaults \
+  --data project_name=py-lib-runtime \
+  --data package_name=py_lib_runtime \
+  --data repository_name=ternforge-tooling-py-runtime \
+  --data project_title='Py Lib Runtime' \
+  --data project_title_lower='py lib runtime' \
+  --data project_description='Shared runtime support helpers for Python libraries.' \
+  --data env_prefix=PY_LIB_RUNTIME \
+  --data error_class_name=PyLibRuntimeError \
+  --data config_class_name=PyLibRuntimeConfig \
+  --data preserve_pyproject_on_update=true \
+  --data ci_policy_command= \
+  --data runtime_audit_exclude_package= \
+  --vcs-ref "$TEMPLATE_REF" \
+  "$TEMPLATE_URL" \
+  "$tooling_target"
+
+for target in "$default_target" "$product_target" "$tooling_target"; do
   test -f "$target/.copier-answers.yml"
   test -f "$target/.github/workflows/ci.yml"
   test -f "$target/.github/workflows/release.yml"
@@ -56,7 +78,13 @@ for target in "$default_target" "$product_target"; do
   grep -F "_src_path: $TEMPLATE_URL" "$target/.copier-answers.yml"
 done
 
-python - "$product_target" <<'PY'
+grep -F 'policy-command: "py-lib-policy check"' "$default_target/.github/workflows/ci.yml"
+grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
+grep -F 'policy-command: ""' "$tooling_target/.github/workflows/ci.yml"
+grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
+grep -F 'preserve_pyproject_on_update: true' "$tooling_target/.copier-answers.yml"
+
+uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
 
 import json
