@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.3 — 2026-08-07
+
+- Provide Hatchling inside the `check-manifest` pre-commit environment.
+- Keep no-build-isolation manifest checks working for both setuptools and Hatchling projects.
+- Update the immutable component snapshot to `v1.6.5`.
+
 ## 1.2.2 — 2026-08-07
 
 - Align generated Flake8 class-order hooks with the aggregate CI contract.
