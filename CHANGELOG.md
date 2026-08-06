@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.2 — 2026-08-07
+
+- Align generated Flake8 class-order hooks with the aggregate CI contract.
+- Update the immutable component snapshot to `v1.6.4`.
+- Prove the subsequent Copier update path for onboarded tooling repositories.
+
 ## 1.2.1 — 2026-08-07
 
 - Pin generated projects, host tooling, CI, and devcontainers to exact `uv 0.12.0`.
