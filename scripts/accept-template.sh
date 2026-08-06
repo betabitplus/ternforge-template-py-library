@@ -76,8 +76,8 @@ for target in "$default_target" "$product_target" "$tooling_target"; do
   grep -F "_src_path: $TEMPLATE_URL" "$target/.copier-answers.yml"
 done
 
-grep -F 'policy-command: py-lib-policy check' "$default_target/.github/workflows/ci.yml"
-grep -F 'runtime-audit-exclude-package: py-lib-runtime' "$default_target/.github/workflows/ci.yml"
+grep -F 'policy-command: "py-lib-policy check"' "$default_target/.github/workflows/ci.yml"
+grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'policy-command: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'preserve_pyproject_on_update: true' "$tooling_target/.copier-answers.yml"
