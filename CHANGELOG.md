@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 — 2026-08-06
+
+- Update the released component snapshot to `v1.6.1`.
+- Keep local policy and runtime-audit hooks aligned with explicit Copier answers.
+- Preserve standalone tooling dependency boundaries in local and reusable CI.
+
 ## 1.2.0 — 2026-08-06
 
 - Update the released component snapshot to `v1.6.0`.
