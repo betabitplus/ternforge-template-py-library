@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'fix: keep generated utility scripts self-contained'
-      sha: ce46cb7c78ef2d2631f1b3d931327c18e0537aa5
+      commitTitle: 'ci: retry hosted runner allocation'
+      sha: 8e5e0dc6e30320e4f5234ed844197a1d666c9049
       tags:
-      - v1.6.1-4-gce46cb7
+      - v1.6.1-6-g8e5e0dc
     path: .
   path: template/_components
 kind: LockConfig
