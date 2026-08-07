@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.6](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.5...v1.2.6) (2026-08-07)
+
+
+### Bug Fixes
+
+* remove obsolete recopy audit flag ([#20](https://github.com/betabitplus/ternforge-template-py-library/issues/20)) ([53f824a](https://github.com/betabitplus/ternforge-template-py-library/commit/53f824afe5e6630a6679f45423d20a28476e15e9))
+
 ## [1.2.5](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.4...v1.2.5) (2026-08-07)
 
 
