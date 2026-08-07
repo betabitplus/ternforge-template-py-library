@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.3...v1.2.4) (2026-08-07)
+
+
+### Bug Fixes
+
+* bind released tooling packages ([#16](https://github.com/betabitplus/ternforge-template-py-library/issues/16)) ([c8ef7d9](https://github.com/betabitplus/ternforge-template-py-library/commit/c8ef7d9232afa087c093aac79634e4cdb05f5e86))
+
 ## 1.2.3 — 2026-08-07
 
 - Provide Hatchling inside the `check-manifest` pre-commit environment.
@@ -38,4 +45,3 @@
 - Release the complete standalone Python library product.
 - Publish immutable runtime, policy, and testkit bindings.
 - Add locked direct CI, local hooks, automatic secrets, and devcontainer support.
-
