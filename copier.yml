@@ -15,14 +15,14 @@ _envops:
 _exclude:
   - _components
   - _components/**
-  - "[[% if _copier_operation == 'update' or (ternforge_recopy_audit | default(false)) -%]]src/**[[% endif %]]"
-  - "[[% if _copier_operation == 'update' or (ternforge_recopy_audit | default(false)) -%]]tests/**[[% endif %]]"
-  - "[[% if _copier_operation == 'update' or (ternforge_recopy_audit | default(false)) -%]]docs/**[[% endif %]]"
-  - "[[% if _copier_operation == 'update' or (ternforge_recopy_audit | default(false)) -%]]examples/**[[% endif %]]"
-  - "[[% if _copier_operation == 'update' or (ternforge_recopy_audit | default(false)) -%]]workbench/**[[% endif %]]"
-  - "[[% if _copier_operation == 'update' or (ternforge_recopy_audit | default(false)) -%]]README.md[[% endif %]]"
-  - "[[% if _copier_operation == 'update' or (ternforge_recopy_audit | default(false)) -%]]CHANGELOG.md[[% endif %]]"
-  - "[[% if (_copier_operation == 'update' or (ternforge_recopy_audit | default(false))) and (preserve_pyproject_on_update | default(false)) -%]]pyproject.toml[[% endif %]]"
+  - "[[% if _copier_operation == 'update' -%]]src/**[[% endif %]]"
+  - "[[% if _copier_operation == 'update' -%]]tests/**[[% endif %]]"
+  - "[[% if _copier_operation == 'update' -%]]docs/**[[% endif %]]"
+  - "[[% if _copier_operation == 'update' -%]]examples/**[[% endif %]]"
+  - "[[% if _copier_operation == 'update' -%]]workbench/**[[% endif %]]"
+  - "[[% if _copier_operation == 'update' -%]]README.md[[% endif %]]"
+  - "[[% if _copier_operation == 'update' -%]]CHANGELOG.md[[% endif %]]"
+  - "[[% if _copier_operation == 'update' and (preserve_pyproject_on_update | default(false)) -%]]pyproject.toml[[% endif %]]"
 
 project_name:
   type: str
