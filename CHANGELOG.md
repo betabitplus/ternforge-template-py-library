@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.5](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.4...v1.2.5) (2026-08-07)
+
+
+### Bug Fixes
+
+* pin corrected tooling snapshots ([a1e6a64](https://github.com/betabitplus/ternforge-template-py-library/commit/a1e6a646f1c0748d4ded904790ca507b4a9ad35c))
+
 ## [1.2.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.3...v1.2.4) (2026-08-07)
 
 
