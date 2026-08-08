@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.7](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.6...v1.2.7) (2026-08-08)
+
+
+### Bug Fixes
+
+* restore standard Python template ownership ([#22](https://github.com/betabitplus/ternforge-template-py-library/issues/22)) ([6dcd728](https://github.com/betabitplus/ternforge-template-py-library/commit/6dcd7284c0f4618603d49b1a8be0544c5e1ed3cb))
+
 ## [1.2.6](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.5...v1.2.6) (2026-08-07)
 
 
