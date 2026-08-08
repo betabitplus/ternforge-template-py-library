@@ -22,7 +22,6 @@ _exclude:
   - "[[% if _copier_operation == 'update' -%]]workbench/**[[% endif %]]"
   - "[[% if _copier_operation == 'update' -%]]README.md[[% endif %]]"
   - "[[% if _copier_operation == 'update' -%]]CHANGELOG.md[[% endif %]]"
-  - "[[% if _copier_operation == 'update' and (preserve_pyproject_on_update | default(false)) -%]]pyproject.toml[[% endif %]]"
 
 project_name:
   type: str
@@ -58,11 +57,6 @@ initial_version:
   type: str
   help: Initial package version for generated projects.
   default: 0.1.0
-
-preserve_pyproject_on_update:
-  type: bool
-  help: Keep an existing package-owned pyproject.toml unchanged during Copier updates.
-  default: false
 
 author_name:
   type: str
