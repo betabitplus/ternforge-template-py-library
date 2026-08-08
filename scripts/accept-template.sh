@@ -165,10 +165,17 @@ import tomllib
 print(tomllib.loads(pathlib.Path("pyproject.toml").read_text())["project"]["name"])
 PY
 )"
+  artifact_requirements="$work_root/artifact-runtime-requirements.txt"
+  uv export \
+    --frozen \
+    --no-dev \
+    --no-emit-project \
+    --output-file "$artifact_requirements"
   for artifact in dist/*.whl dist/*.tar.gz; do
     environment="$work_root/$(basename "$artifact" | tr '.-' '__')"
     uv venv --python 3.13 "$environment"
-    uv pip install --python "$environment/bin/python" "$artifact"
+    uv pip install --python "$environment/bin/python" --requirement "$artifact_requirements"
+    uv pip install --python "$environment/bin/python" --no-deps "$artifact"
     "$environment/bin/python" - "$project_name" <<'PY'
 import importlib
 import importlib.metadata
