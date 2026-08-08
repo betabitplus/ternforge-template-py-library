@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.1...v1.3.2) (2026-08-08)
+
+
+### Bug Fixes
+
+* install generated artifact dependencies from lock ([#35](https://github.com/betabitplus/ternforge-template-py-library/issues/35)) ([519ce89](https://github.com/betabitplus/ternforge-template-py-library/commit/519ce89bbe95cf8dbd1aee07b3aee75a69bf6a3c))
+
 ## [1.3.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.0...v1.3.1) (2026-08-08)
 
 
