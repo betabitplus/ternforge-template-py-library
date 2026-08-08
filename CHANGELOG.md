@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.8](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.7...v1.2.8) (2026-08-08)
+
+
+### Bug Fixes
+
+* keep generated changelog release-owned ([#24](https://github.com/betabitplus/ternforge-template-py-library/issues/24)) ([436647b](https://github.com/betabitplus/ternforge-template-py-library/commit/436647b82b57d480b057b26127556a93e085f972))
+
 ## [1.2.7](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.6...v1.2.7) (2026-08-08)
 
 
