@@ -117,7 +117,7 @@ config_class_name:
 
 e2e_slices:
   type: yaml
-  help: CI e2e slices to run as hermetic pytest paths.
+  help: E2E slices used by Ternforge structural and documentation policy checks.
   default:
     - name: public-boundary
       path: tests/__PACKAGE_NAME__/e2e/public_boundary
@@ -125,16 +125,6 @@ e2e_slices:
 ci_playwright_browsers:
   type: yaml
   help: Playwright browser names to install in CI before browser-backed tests.
-  default: []
-
-renovate_uv_ignored_updates:
-  type: yaml
-  help: Renovate uv dependency update rules to ignore. Each entry uses package_name and Renovate update_types such as major, minor, or patch.
-  default: []
-
-pip_audit_waivers:
-  type: yaml
-  help: Repository-specific pip-audit waivers. Each item must contain id, rationale, and remove_when.
   default: []
 
 gitignore_extra_patterns:

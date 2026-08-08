@@ -14,6 +14,7 @@ trap 'rm -rf "$work_root"' EXIT
 default_target="$work_root/default"
 product_target="$work_root/product"
 tooling_target="$work_root/tooling"
+browser_target="$work_root/browser"
 
 uvx --from copier==9.17.0 copier copy \
   --quiet \
@@ -56,6 +57,25 @@ uvx --from copier==9.17.0 copier copy \
   "$TEMPLATE_URL" \
   "$tooling_target"
 
+uvx --from copier==9.17.0 copier copy \
+  --quiet \
+  --defaults \
+  --data project_name=browser-acceptance \
+  --data package_name=browser_acceptance \
+  --data repository_name=browser-acceptance \
+  --data 'ci_playwright_browsers=["chromium"]' \
+  --vcs-ref "$TEMPLATE_REF" \
+  "$TEMPLATE_URL" \
+  "$browser_target"
+
+grep -F 'playwright-browsers: "chromium"' "$browser_target/.github/workflows/ci.yml"
+for target in "$default_target" "$product_target" "$tooling_target" "$browser_target"; do
+  ! grep -F 'pip_audit_waivers:' "$target/.copier-answers.yml"
+  ! grep -F 'renovate_uv_ignored_updates:' "$target/.copier-answers.yml"
+  ! grep -F '[tool.pip-audit]' "$target/pyproject.toml"
+  ! grep -F 'py-lib-audit-runtime-dependencies' "$target/.pre-commit-config.yaml"
+done
+
 for target in "$default_target" "$product_target" "$tooling_target"; do
   test -f "$target/.copier-answers.yml"
   test -f "$target/.github/workflows/ci.yml"
@@ -84,13 +104,8 @@ grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/c
 grep -F 'required-version = "==0.12.0"' "$default_target/pyproject.toml"
 grep -F 'required-version = "==0.12.0"' "$tooling_target/pyproject.toml"
 grep -F 'entry: uv run py-lib-policy check' "$default_target/.pre-commit-config.yaml"
-grep -F -- '--no-emit-package py-lib-runtime' "$default_target/.pre-commit-config.yaml"
 if grep -F 'entry: uv run py-lib-policy check' "$tooling_target/.pre-commit-config.yaml"; then
   echo 'standalone tooling render must not depend on py-lib-policy' >&2
-  exit 1
-fi
-if grep -F -- '--no-emit-package' "$tooling_target/.pre-commit-config.yaml"; then
-  echo 'standalone tooling render must not hardcode an audit exclusion' >&2
   exit 1
 fi
 
