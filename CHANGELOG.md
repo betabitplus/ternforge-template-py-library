@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.8...v1.3.0) (2026-08-08)
+
+
+### Features
+
+* dispatch Python template releases ([#28](https://github.com/betabitplus/ternforge-template-py-library/issues/28)) ([068711c](https://github.com/betabitplus/ternforge-template-py-library/commit/068711cf9137aa9588c70d8a2b914592daeff70d))
+
 ## [1.2.8](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.7...v1.2.8) (2026-08-08)
 
 
