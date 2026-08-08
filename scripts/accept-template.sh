@@ -50,7 +50,6 @@ uvx --from copier==9.17.0 copier copy \
   --data env_prefix=PY_LIB_RUNTIME \
   --data error_class_name=PyLibRuntimeError \
   --data config_class_name=PyLibRuntimeConfig \
-  --data preserve_pyproject_on_update=true \
   --data ci_policy_command= \
   --data runtime_audit_exclude_package= \
   --vcs-ref "$TEMPLATE_REF" \
@@ -82,7 +81,6 @@ grep -F 'policy-command: "py-lib-policy check"' "$default_target/.github/workflo
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'policy-command: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
-grep -F 'preserve_pyproject_on_update: true' "$tooling_target/.copier-answers.yml"
 grep -F 'required-version = "==0.12.0"' "$default_target/pyproject.toml"
 grep -F 'required-version = "==0.12.0"' "$tooling_target/pyproject.toml"
 grep -F 'entry: uv run py-lib-policy check' "$default_target/.pre-commit-config.yaml"
