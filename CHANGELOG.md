@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.0...v1.3.1) (2026-08-08)
+
+
+### Bug Fixes
+
+* **deps:** update vendir https://github.com/betabitplus/ternforge-template-components.git to v1.7.0 ([#30](https://github.com/betabitplus/ternforge-template-py-library/issues/30)) ([b11c0b3](https://github.com/betabitplus/ternforge-template-py-library/commit/b11c0b3f0e25baf15c5f783bff54cf8d99c36890))
+
 ## [1.3.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.2.8...v1.3.0) (2026-08-08)
 
 
