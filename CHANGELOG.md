@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.5](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.4...v1.3.5) (2026-08-08)
+
+
+### Bug Fixes
+
+* complete Python template CI contract ([#43](https://github.com/betabitplus/ternforge-template-py-library/issues/43)) ([558c4f7](https://github.com/betabitplus/ternforge-template-py-library/commit/558c4f7fdb9e0a2ae84fea1a999f6381e5a528d6))
+
 ## [1.3.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.3...v1.3.4) (2026-08-08)
 
 
