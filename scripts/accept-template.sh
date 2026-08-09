@@ -209,6 +209,10 @@ for package in candidates:
 PY
   done
 
+  uv run --no-sync pre-commit validate-config
+  SKIP=ruff,ruff-format,ty,uv-lock-check \
+    uv run --no-sync pre-commit run --all-files --hook-stage pre-commit
+
   git diff --exit-code
   test -z "$(git status --porcelain --untracked-files=normal)"
 )
