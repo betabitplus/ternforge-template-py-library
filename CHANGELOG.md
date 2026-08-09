@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.6](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.5...v1.3.6) (2026-08-09)
+
+
+### Bug Fixes
+
+* protect release credentials ([#47](https://github.com/betabitplus/ternforge-template-py-library/issues/47)) ([8a22d93](https://github.com/betabitplus/ternforge-template-py-library/commit/8a22d931b274c323a38fcab5b2523ba5c0c2eb7e))
+* skip template repository lock sync ([#49](https://github.com/betabitplus/ternforge-template-py-library/issues/49)) ([0f6db74](https://github.com/betabitplus/ternforge-template-py-library/commit/0f6db74393e4dfebeb0770c5da4bd37a261a42e0))
+
 ## [1.3.5](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.4...v1.3.5) (2026-08-08)
 
 
