@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.10](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.9...v1.3.10) (2026-08-10)
+
+
+### Bug Fixes
+
+* update Python policy component ([#58](https://github.com/betabitplus/ternforge-template-py-library/issues/58)) ([58abf92](https://github.com/betabitplus/ternforge-template-py-library/commit/58abf92d2a1405ddc383edd066b07958c90d9e25))
+
 ## [1.3.9](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.8...v1.3.9) (2026-08-10)
 
 
