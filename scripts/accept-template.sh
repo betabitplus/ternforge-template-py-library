@@ -51,7 +51,6 @@ uvx --from copier==9.17.0 copier copy \
   --data env_prefix=PY_LIB_RUNTIME \
   --data error_class_name=PyLibRuntimeError \
   --data config_class_name=PyLibRuntimeConfig \
-  --data ci_policy_command= \
   --data runtime_audit_exclude_package= \
   --vcs-ref "$TEMPLATE_REF" \
   "$TEMPLATE_URL" \
@@ -97,17 +96,14 @@ for target in "$default_target" "$product_target" "$tooling_target"; do
   grep -F "_src_path: $TEMPLATE_URL" "$target/.copier-answers.yml"
 done
 
-grep -F 'policy-command: "py-lib-policy check"' "$default_target/.github/workflows/ci.yml"
+for target in "$default_target" "$product_target" "$tooling_target" "$browser_target"; do
+  ! grep -F 'policy-command:' "$target/.github/workflows/ci.yml"
+  grep -F 'entry: uv run py-lib-policy check' "$target/.pre-commit-config.yaml"
+done
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
-grep -F 'policy-command: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'required-version = "==0.12.0"' "$default_target/pyproject.toml"
 grep -F 'required-version = "==0.12.0"' "$tooling_target/pyproject.toml"
-grep -F 'entry: uv run py-lib-policy check' "$default_target/.pre-commit-config.yaml"
-if grep -F 'entry: uv run py-lib-policy check' "$tooling_target/.pre-commit-config.yaml"; then
-  echo 'standalone tooling render must not depend on py-lib-policy' >&2
-  exit 1
-fi
 
 uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations

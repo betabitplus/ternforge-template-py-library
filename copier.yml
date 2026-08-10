@@ -90,11 +90,6 @@ library_lane:
     - standard-lib
   default: standard-lib
 
-ci_policy_command:
-  type: str
-  help: Direct policy command used by reusable CI; leave empty only when the repository must not depend on the policy package.
-  default: py-lib-policy check
-
 runtime_audit_exclude_package:
   type: str
   help: Optional internal VCS package omitted from the frozen runtime audit export.
