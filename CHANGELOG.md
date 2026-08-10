@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.14](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.13...v1.3.14) (2026-08-10)
+
+
+### Bug Fixes
+
+* update uv to 0.12.3 atomically ([#67](https://github.com/betabitplus/ternforge-template-py-library/issues/67)) ([ba95a69](https://github.com/betabitplus/ternforge-template-py-library/commit/ba95a6930298a47ce6e098b22d82980490b8d7a5))
+
 ## [1.3.13](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.12...v1.3.13) (2026-08-10)
 
 
