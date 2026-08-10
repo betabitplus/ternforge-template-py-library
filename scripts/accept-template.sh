@@ -102,8 +102,8 @@ for target in "$default_target" "$product_target" "$tooling_target" "$browser_ta
 done
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
-grep -F 'required-version = "==0.12.0"' "$default_target/pyproject.toml"
-grep -F 'required-version = "==0.12.0"' "$tooling_target/pyproject.toml"
+grep -F 'required-version = "==0.12.3"' "$default_target/pyproject.toml"
+grep -F 'required-version = "==0.12.3"' "$tooling_target/pyproject.toml"
 
 uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
@@ -121,7 +121,7 @@ assert manifest["."] == "0.1.0"
 assert pyproject["project"]["version"] == manifest["."]
 assert pyproject["project"]["name"] == "acceptance-lib"
 assert pyproject["tool"]["ternforge"]["primary_package"] == "acceptance_lib"
-assert pyproject["tool"]["uv"]["required-version"] == "==0.12.0"
+assert pyproject["tool"]["uv"]["required-version"] == "==0.12.3"
 PY
 
 git -C "$product_target" init --initial-branch=main
@@ -136,7 +136,7 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
 
 (
   cd "$product_target"
-  uv --version | grep -F 'uv 0.12.0'
+  uv --version | grep -F 'uv 0.12.3'
   uv sync --locked --all-groups --python 3.13
   uv run --no-sync ruff check .
   uv run --no-sync ruff format --check .
