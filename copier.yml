@@ -124,7 +124,7 @@ ci_playwright_browsers:
 
 gitignore_extra_patterns:
   type: yaml
-  help: Repo-specific .gitignore patterns allowed beyond the starter baseline.
+  help: Repo-specific .gitignore patterns allowed beyond the shared Ternforge defaults.
   default: []
 
 workspace_python_paths:

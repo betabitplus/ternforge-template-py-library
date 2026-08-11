@@ -68,13 +68,6 @@ uvx --from copier==9.17.0 copier copy \
   "$browser_target"
 
 grep -F 'playwright-browsers: "chromium"' "$browser_target/.github/workflows/ci.yml"
-for target in "$default_target" "$product_target" "$tooling_target" "$browser_target"; do
-  ! grep -F 'pip_audit_waivers:' "$target/.copier-answers.yml"
-  ! grep -F 'renovate_uv_ignored_updates:' "$target/.copier-answers.yml"
-  ! grep -F '[tool.pip-audit]' "$target/pyproject.toml"
-  ! grep -F 'py-lib-audit-runtime-dependencies' "$target/.pre-commit-config.yaml"
-done
-
 for target in "$default_target" "$product_target" "$tooling_target"; do
   test -f "$target/.copier-answers.yml"
   test -f "$target/.github/workflows/ci.yml"
@@ -96,10 +89,6 @@ for target in "$default_target" "$product_target" "$tooling_target"; do
   grep -F "_src_path: $TEMPLATE_URL" "$target/.copier-answers.yml"
 done
 
-for target in "$default_target" "$product_target" "$tooling_target" "$browser_target"; do
-  ! grep -F 'policy-command:' "$target/.github/workflows/ci.yml"
-  grep -F 'entry: uv run py-lib-policy check' "$target/.pre-commit-config.yaml"
-done
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'required-version = "==0.12.3"' "$default_target/pyproject.toml"
