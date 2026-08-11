@@ -44,7 +44,7 @@ uvx --from copier==9.17.0 copier copy \
   --defaults \
   --data project_name=py-lib-runtime \
   --data package_name=py_lib_runtime \
-  --data repository_name=ternforge-tooling-py-runtime \
+  --data repository_name=acceptance-tooling \
   --data project_title='Py Lib Runtime' \
   --data project_title_lower='py lib runtime' \
   --data project_description='Shared runtime support helpers for Python libraries.' \
