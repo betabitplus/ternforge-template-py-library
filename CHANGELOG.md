@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.15](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.14...v1.3.15) (2026-08-11)
+
+
+### Bug Fixes
+
+* remove migration-era template residue ([#71](https://github.com/betabitplus/ternforge-template-py-library/issues/71)) ([c4fe6c9](https://github.com/betabitplus/ternforge-template-py-library/commit/c4fe6c974ed512ed8005ad26c130c0acd1cd028b))
+
 ## [1.3.14](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.13...v1.3.14) (2026-08-10)
 
 
