@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.16](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.15...v1.3.16) (2026-08-11)
+
+
+### Bug Fixes
+
+* remove planning protocol compatibility path ([#74](https://github.com/betabitplus/ternforge-template-py-library/issues/74)) ([0e8486e](https://github.com/betabitplus/ternforge-template-py-library/commit/0e8486e2cd6389f80bbfbfdd6f3ae5f89a68efe4))
+
 ## [1.3.15](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.14...v1.3.15) (2026-08-11)
 
 
