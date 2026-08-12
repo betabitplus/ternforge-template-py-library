@@ -83,13 +83,6 @@ repository_name:
   help: GitHub repository name.
   default: "[[[ project_name ]]]"
 
-library_lane:
-  type: str
-  help: Platform lane for template, tooling, and policy checks.
-  choices:
-    - standard-lib
-  default: standard-lib
-
 runtime_audit_exclude_package:
   type: str
   help: Optional internal VCS package omitted from the frozen runtime audit export.
