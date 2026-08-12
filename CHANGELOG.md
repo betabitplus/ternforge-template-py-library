@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.20](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.19...v1.3.20) (2026-08-12)
+
+
+### Bug Fixes
+
+* pin template acceptance inputs ([#86](https://github.com/betabitplus/ternforge-template-py-library/issues/86)) ([2dd5b9e](https://github.com/betabitplus/ternforge-template-py-library/commit/2dd5b9ef5fe99cebf1f311fb9bfb592a813b10b0))
+
 ## [1.3.19](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.18...v1.3.19) (2026-08-12)
 
 
