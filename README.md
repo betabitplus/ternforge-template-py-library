@@ -9,9 +9,9 @@ devcontainer.
 
 ## Source contract
 
-- Copier: `9.17.0`
-- Vendir: `0.46.0`
-- uv: `0.12.3` for template acceptance
+- Copier: exact minimum declared by `copier.yml`
+- Vendir: exact version declared by the CI setup input
+- uv: product pin declared by the component `[tool.uv].required-version`; acceptance runtime pinned in CI
 - Components: declared by `vendir.yml` and resolved exactly by `vendir.lock.yml`
 
 The committed `template/_components` directory is a Vendir-managed snapshot.
