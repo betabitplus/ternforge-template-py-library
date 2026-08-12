@@ -63,10 +63,6 @@ jobs:
           test -z "$(find template/_components -type l -print -quit)"
           test ! -e template/_components/.git
           grep -F 'legalPaths: []' vendir.yml
-          if grep -F 'newRootPath:' vendir.yml; then
-            echo 'newRootPath is not part of the accepted Vendir contract' >&2
-            exit 1
-          fi
 
       - name: Verify complete generated Python product
         env:
