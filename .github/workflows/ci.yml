@@ -39,6 +39,22 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
+      - name: Create read-only source App token
+        id: source-read-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.TERNFORGE_SOURCE_READ_CLIENT_ID }}
+          private-key: ${{ secrets.TERNFORGE_SOURCE_READ_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          permission-contents: read
+
+      - name: Configure Git authentication for private sources
+        env:
+          GH_TOKEN: ${{ steps.source-read-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          gh auth setup-git
+
       - name: Set up uv
         uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
         with:
@@ -53,6 +69,8 @@ jobs:
           vendir: 0.46.0
 
       - name: Verify declared component snapshot
+        env:
+          GH_TOKEN: ${{ steps.source-read-token.outputs.token }}
         run: |
           set -euo pipefail
           vendir sync
@@ -60,6 +78,7 @@ jobs:
 
       - name: Verify complete generated Python product
         env:
+          GH_TOKEN: ${{ steps.source-read-token.outputs.token }}
           TEMPLATE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
           TEMPLATE_URL: https://github.com/${{ github.repository }}.git
         run: scripts/accept-template.sh
