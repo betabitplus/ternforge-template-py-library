@@ -69,6 +69,8 @@ jobs:
           vendir: 0.46.0
 
       - name: Verify declared component snapshot
+        env:
+          GH_TOKEN: ${{ steps.source-read-token.outputs.token }}
         run: |
           set -euo pipefail
           vendir sync
@@ -76,6 +78,7 @@ jobs:
 
       - name: Verify complete generated Python product
         env:
+          GH_TOKEN: ${{ steps.source-read-token.outputs.token }}
           TEMPLATE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
           TEMPLATE_URL: https://github.com/${{ github.repository }}.git
         run: scripts/accept-template.sh
