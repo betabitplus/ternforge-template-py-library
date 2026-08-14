@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.24...v1.4.0) (2026-08-14)
+
+
+### Features
+
+* support private local CI routing ([#103](https://github.com/betabitplus/ternforge-template-py-library/issues/103)) ([1e6aa40](https://github.com/betabitplus/ternforge-template-py-library/commit/1e6aa40f109c2b123db0534de6c538c637e7b03e))
+
+
+### Bug Fixes
+
+* **deps:** update vendir https://github.com/betabitplus/ternforge-template-components.git to v1.8.0 ([#99](https://github.com/betabitplus/ternforge-template-py-library/issues/99)) ([82e3e93](https://github.com/betabitplus/ternforge-template-py-library/commit/82e3e93fb57c91a27bc58814b4bcbaec0b79fa66))
+
 ## [1.3.24](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.23...v1.3.24) (2026-08-14)
 
 
