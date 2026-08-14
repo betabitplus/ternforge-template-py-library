@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.24](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.23...v1.3.24) (2026-08-14)
+
+
+### Bug Fixes
+
+* support private source repositories ([#100](https://github.com/betabitplus/ternforge-template-py-library/issues/100)) ([48d17ae](https://github.com/betabitplus/ternforge-template-py-library/commit/48d17ae19027b392ee1f79ac8e6f07931494af41))
+* update component snapshot to v1.7.31 ([#102](https://github.com/betabitplus/ternforge-template-py-library/issues/102)) ([9a69a24](https://github.com/betabitplus/ternforge-template-py-library/commit/9a69a2462924e185dfaaab1c138ee5b15e112320))
+
 ## [1.3.23](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.3.22...v1.3.23) (2026-08-13)
 
 
