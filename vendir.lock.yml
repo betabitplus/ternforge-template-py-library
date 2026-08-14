@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'chore(main): release 1.8.0 (#148)...'
-      sha: 0b0da15cc2d43492f5058c26407280e30e9390ce
+      commitTitle: 'chore(main): release 1.8.1 (#161)...'
+      sha: 7d53f2220b679ddb1d7fb52f731fd874f166c378
       tags:
-      - v1.8.0
+      - v1.8.1
     path: .
   path: template/_components
 kind: LockConfig
