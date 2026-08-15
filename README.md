@@ -11,7 +11,7 @@ devcontainer.
 
 - Copier: exact minimum declared by `copier.yml`
 - Vendir: exact version declared by the CI setup input
-- uv: product pin declared by the component `[tool.uv].required-version`; acceptance runtime pinned in CI
+- uv: one product pin declared by the component `[tool.uv].required-version`; acceptance CI reads the same pin through `setup-uv` `version-file`
 - Components: declared by `vendir.yml` and resolved exactly by `vendir.lock.yml`
 
 The committed `template/_components` directory is a Vendir-managed snapshot.
