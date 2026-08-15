@@ -151,7 +151,7 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
     --disable-pip
 
   rm -rf build dist
-  uv run --no-sync python -m build
+  uv build --no-sources
   uv run --no-sync twine check dist/*
   uv run --no-sync check-wheel-contents dist/*.whl
   uv run --no-sync check-manifest
