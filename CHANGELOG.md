@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.4.3...v1.4.4) (2026-08-15)
+
+
+### Bug Fixes
+
+* **deps:** update vendir https://github.com/betabitplus/ternforge-template-components.git to v1.8.5 ([#117](https://github.com/betabitplus/ternforge-template-py-library/issues/117)) ([b2240f9](https://github.com/betabitplus/ternforge-template-py-library/commit/b2240f913ffbacfbda2e15ef679ecf3516213b0e))
+* use native uv package build in template acceptance ([14bee1e](https://github.com/betabitplus/ternforge-template-py-library/commit/14bee1ee7e2cc1eb66724c6403c19151bf28d60b))
+
 ## [1.4.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.4.2...v1.4.3) (2026-08-14)
 
 
