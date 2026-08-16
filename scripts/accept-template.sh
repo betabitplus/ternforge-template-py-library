@@ -16,14 +16,14 @@ product_target="$work_root/product"
 tooling_target="$work_root/tooling"
 browser_target="$work_root/browser"
 
-uvx --from copier==9.17.0 copier copy \
+uvx --from copier==9.17.1 copier copy \
   --quiet \
   --defaults \
   --vcs-ref "$TEMPLATE_REF" \
   "$TEMPLATE_URL" \
   "$default_target"
 
-uvx --from copier==9.17.0 copier copy \
+uvx --from copier==9.17.1 copier copy \
   --quiet \
   --defaults \
   --data project_name=acceptance-lib \
@@ -39,7 +39,7 @@ uvx --from copier==9.17.0 copier copy \
   "$TEMPLATE_URL" \
   "$product_target"
 
-uvx --from copier==9.17.0 copier copy \
+uvx --from copier==9.17.1 copier copy \
   --quiet \
   --defaults \
   --data project_name=py-lib-runtime \
@@ -56,7 +56,7 @@ uvx --from copier==9.17.0 copier copy \
   "$TEMPLATE_URL" \
   "$tooling_target"
 
-uvx --from copier==9.17.0 copier copy \
+uvx --from copier==9.17.1 copier copy \
   --quiet \
   --defaults \
   --data project_name=browser-acceptance \
@@ -204,7 +204,7 @@ if [[ -n "$previous_tag" ]]; then
   update_target="$work_root/update"
   deleted_target="$work_root/deleted-readme"
 
-  uvx --from copier==9.17.0 copier copy \
+  uvx --from copier==9.17.1 copier copy \
     --quiet \
     --defaults \
     --data project_name=update-lib \
@@ -226,7 +226,7 @@ if [[ -n "$previous_tag" ]]; then
   git -C "$update_target" config user.email 'acceptance@ternforge.invalid'
   git -C "$update_target" add --all
   git -C "$update_target" commit --no-verify -m 'test: prepare update fixture'
-  uvx --from copier==9.17.0 copier update \
+  uvx --from copier==9.17.1 copier update \
     --quiet \
     --defaults \
     --vcs-ref "$TEMPLATE_REF" \
@@ -235,9 +235,9 @@ if [[ -n "$previous_tag" ]]; then
   grep -F 'operator sentinel' "$update_target/operator.txt"
   grep -F '# User-owned source sentinel' "$update_target/src/update_lib/__init__.py"
   test ! -e "$update_target/_components"
-  uvx --from copier==9.17.0 copier check-update --quiet "$update_target"
+  uvx --from copier==9.17.1 copier check-update --quiet "$update_target"
 
-  uvx --from copier==9.17.0 copier copy \
+  uvx --from copier==9.17.1 copier copy \
     --quiet \
     --defaults \
     --data project_name=deleted-readme \
@@ -257,7 +257,7 @@ if [[ -n "$previous_tag" ]]; then
   git -C "$deleted_target" config user.email 'acceptance@ternforge.invalid'
   git -C "$deleted_target" add --all
   git -C "$deleted_target" commit --no-verify -m 'test: prepare deleted README fixture'
-  uvx --from copier==9.17.0 copier update \
+  uvx --from copier==9.17.1 copier update \
     --quiet \
     --defaults \
     --vcs-ref "$TEMPLATE_REF" \
