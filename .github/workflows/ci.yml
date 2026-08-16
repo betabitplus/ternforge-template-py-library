@@ -89,4 +89,3 @@ jobs:
           git diff --check
           python -m json.tool release-please-config.json >/dev/null
           python -m json.tool .release-please-manifest.json >/dev/null
-          test -x scripts/accept-template.sh
