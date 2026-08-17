@@ -15,6 +15,8 @@ default_target="$work_root/default"
 product_target="$work_root/product"
 tooling_target="$work_root/tooling"
 browser_target="$work_root/browser"
+waiver_target="$work_root/waiver"
+invalid_waiver_target="$work_root/invalid-waiver"
 
 uvx --from copier==9.17.1 copier copy \
   --quiet \
@@ -67,7 +69,41 @@ uvx --from copier==9.17.1 copier copy \
   "$TEMPLATE_URL" \
   "$browser_target"
 
+uvx --from copier==9.17.1 copier copy \
+  --quiet \
+  --defaults \
+  --data project_name=waiver-acceptance \
+  --data package_name=waiver_acceptance \
+  --data repository_name=waiver-acceptance \
+  --data 'pip_audit_waivers=[{"id":"CVE-2025-69872","rationale":"No patched upstream release exists.","remove_when":"Remove after a patched dependency release is adopted."}]' \
+  --vcs-ref "$TEMPLATE_REF" \
+  "$TEMPLATE_URL" \
+  "$waiver_target"
+
+if uvx --from copier==9.17.1 copier copy \
+  --quiet \
+  --defaults \
+  --data project_name=invalid-waiver \
+  --data package_name=invalid_waiver \
+  --data repository_name=invalid-waiver \
+  --data 'pip_audit_waivers=[{"id":"CVE-2025-69872"}]' \
+  --vcs-ref "$TEMPLATE_REF" \
+  "$TEMPLATE_URL" \
+  "$invalid_waiver_target"; then
+  echo 'incomplete pip_audit_waivers entry must be rejected' >&2
+  exit 1
+fi
+
 grep -F 'playwright-browsers: "chromium"' "$browser_target/.github/workflows/ci.yml"
+grep -F 'runtime-audit-ignore-vulnerabilities: "CVE-2025-69872"' "$waiver_target/.github/workflows/ci.yml"
+grep -F '[tool.pip-audit]' "$waiver_target/pyproject.toml"
+grep -F '# CVE-2025-69872: No patched upstream release exists.' "$waiver_target/pyproject.toml"
+grep -F '# Remove when: Remove after a patched dependency release is adopted.' "$waiver_target/pyproject.toml"
+for target in "$default_target" "$product_target" "$tooling_target" "$browser_target"; do
+  grep -F 'runtime-audit-ignore-vulnerabilities: ""' "$target/.github/workflows/ci.yml"
+  ! grep -F '[tool.pip-audit]' "$target/pyproject.toml"
+done
+
 for target in "$default_target" "$product_target" "$tooling_target"; do
   test -f "$target/.copier-answers.yml"
   test -f "$target/.github/workflows/ci.yml"
