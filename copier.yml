@@ -115,6 +115,15 @@ ci_playwright_browsers:
   help: Playwright browser names to install in CI before browser-backed tests.
   default: []
 
+pip_audit_waivers:
+  type: yaml
+  help: Repository-scoped runtime vulnerability waivers. Every item requires id, rationale, and remove_when.
+  default: []
+  validator: >-
+    [[% for waiver in pip_audit_waivers %]]
+    [[% if waiver is not mapping %]]Every pip_audit_waivers item must be a mapping with non-empty id, rationale, and remove_when.[[% elif not waiver.get('id') or not waiver.get('rationale') or not waiver.get('remove_when') %]]Every pip_audit_waivers item must contain non-empty id, rationale, and remove_when.[[% endif %]]
+    [[% endfor %]]
+
 gitignore_extra_patterns:
   type: yaml
   help: Repo-specific .gitignore patterns allowed beyond the shared Ternforge defaults.
