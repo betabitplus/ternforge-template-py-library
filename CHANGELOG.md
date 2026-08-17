@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.4.14...v1.5.0) (2026-08-17)
+
+
+### Features
+
+* add repository-scoped runtime audit waivers ([#146](https://github.com/betabitplus/ternforge-template-py-library/issues/146)) ([4398217](https://github.com/betabitplus/ternforge-template-py-library/commit/4398217ee754fa01ae7b054a3ce1d081df52347a))
+
 ## [1.4.14](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.4.13...v1.4.14) (2026-08-16)
 
 
