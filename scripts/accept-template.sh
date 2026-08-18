@@ -15,6 +15,7 @@ default_target="$work_root/default"
 product_target="$work_root/product"
 tooling_target="$work_root/tooling"
 browser_target="$work_root/browser"
+devcontainer_packages_target="$work_root/devcontainer-packages"
 waiver_target="$work_root/waiver"
 invalid_waiver_target="$work_root/invalid-waiver"
 
@@ -72,6 +73,17 @@ uvx --from copier==9.17.1 copier copy \
 uvx --from copier==9.17.1 copier copy \
   --quiet \
   --defaults \
+  --data project_name=devcontainer-packages \
+  --data package_name=devcontainer_packages \
+  --data repository_name=devcontainer-packages \
+  --data 'devcontainer_apt_packages={"libgl1":"1.7.0-1+b2"}' \
+  --vcs-ref "$TEMPLATE_REF" \
+  "$TEMPLATE_URL" \
+  "$devcontainer_packages_target"
+
+uvx --from copier==9.17.1 copier copy \
+  --quiet \
+  --defaults \
   --data project_name=waiver-acceptance \
   --data package_name=waiver_acceptance \
   --data repository_name=waiver-acceptance \
@@ -95,6 +107,8 @@ if uvx --from copier==9.17.1 copier copy \
 fi
 
 grep -F 'playwright-browsers: "chromium"' "$browser_target/.github/workflows/ci.yml"
+grep -F 'libgl1="1.7.0-1+b2" \' "$devcontainer_packages_target/.devcontainer/Dockerfile"
+! grep -F 'libgl1=' "$default_target/.devcontainer/Dockerfile"
 grep -F 'runtime-audit-ignore-vulnerabilities: "CVE-2025-69872"' "$waiver_target/.github/workflows/ci.yml"
 grep -F '[tool.pip-audit]' "$waiver_target/pyproject.toml"
 grep -F '# CVE-2025-69872: No patched upstream release exists.' "$waiver_target/pyproject.toml"

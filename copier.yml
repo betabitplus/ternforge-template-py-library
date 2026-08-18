@@ -141,3 +141,8 @@ workspace_test_paths:
   default:
     - tests
 
+devcontainer_apt_packages:
+  type: yaml
+  help: Optional pinned Debian package-to-version mapping required by project runtime inside the devcontainer.
+  default: {}
+
