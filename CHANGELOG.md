@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.6.0...v1.6.1) (2026-08-18)
+
+
+### Bug Fixes
+
+* adopt writable devcontainer cache ([#151](https://github.com/betabitplus/ternforge-template-py-library/issues/151)) ([2e2b480](https://github.com/betabitplus/ternforge-template-py-library/commit/2e2b4807ac8e8a6d64e80f5b6ebf6830939d4db4))
+
 ## [1.6.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.5.0...v1.6.0) (2026-08-18)
 
 
