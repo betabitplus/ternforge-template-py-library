@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.5.0...v1.6.0) (2026-08-18)
+
+
+### Features
+
+* support pinned devcontainer system packages ([#148](https://github.com/betabitplus/ternforge-template-py-library/issues/148)) ([6f75117](https://github.com/betabitplus/ternforge-template-py-library/commit/6f7511774a3f3145e99d14114b065a78b9b4b2a9))
+
 ## [1.5.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.4.14...v1.5.0) (2026-08-17)
 
 
