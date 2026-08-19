@@ -19,14 +19,14 @@ devcontainer_packages_target="$work_root/devcontainer-packages"
 waiver_target="$work_root/waiver"
 invalid_waiver_target="$work_root/invalid-waiver"
 
-uvx --from copier==9.17.1 copier copy \
+uvx --from copier==9.17.2 copier copy \
   --quiet \
   --defaults \
   --vcs-ref "$TEMPLATE_REF" \
   "$TEMPLATE_URL" \
   "$default_target"
 
-uvx --from copier==9.17.1 copier copy \
+uvx --from copier==9.17.2 copier copy \
   --quiet \
   --defaults \
   --data project_name=acceptance-lib \
@@ -42,7 +42,7 @@ uvx --from copier==9.17.1 copier copy \
   "$TEMPLATE_URL" \
   "$product_target"
 
-uvx --from copier==9.17.1 copier copy \
+uvx --from copier==9.17.2 copier copy \
   --quiet \
   --defaults \
   --data project_name=py-lib-runtime \
@@ -59,7 +59,7 @@ uvx --from copier==9.17.1 copier copy \
   "$TEMPLATE_URL" \
   "$tooling_target"
 
-uvx --from copier==9.17.1 copier copy \
+uvx --from copier==9.17.2 copier copy \
   --quiet \
   --defaults \
   --data project_name=browser-acceptance \
@@ -70,7 +70,7 @@ uvx --from copier==9.17.1 copier copy \
   "$TEMPLATE_URL" \
   "$browser_target"
 
-uvx --from copier==9.17.1 copier copy \
+uvx --from copier==9.17.2 copier copy \
   --quiet \
   --defaults \
   --data project_name=devcontainer-packages \
@@ -81,7 +81,7 @@ uvx --from copier==9.17.1 copier copy \
   "$TEMPLATE_URL" \
   "$devcontainer_packages_target"
 
-uvx --from copier==9.17.1 copier copy \
+uvx --from copier==9.17.2 copier copy \
   --quiet \
   --defaults \
   --data project_name=waiver-acceptance \
@@ -92,7 +92,7 @@ uvx --from copier==9.17.1 copier copy \
   "$TEMPLATE_URL" \
   "$waiver_target"
 
-if uvx --from copier==9.17.1 copier copy \
+if uvx --from copier==9.17.2 copier copy \
   --quiet \
   --defaults \
   --data project_name=invalid-waiver \
@@ -253,7 +253,7 @@ if [[ -n "$previous_tag" ]]; then
   update_target="$work_root/update"
   deleted_target="$work_root/deleted-readme"
 
-  uvx --from copier==9.17.1 copier copy \
+  uvx --from copier==9.17.2 copier copy \
     --quiet \
     --defaults \
     --data project_name=update-lib \
@@ -275,7 +275,7 @@ if [[ -n "$previous_tag" ]]; then
   git -C "$update_target" config user.email 'acceptance@ternforge.invalid'
   git -C "$update_target" add --all
   git -C "$update_target" commit --no-verify -m 'test: prepare update fixture'
-  uvx --from copier==9.17.1 copier update \
+  uvx --from copier==9.17.2 copier update \
     --quiet \
     --defaults \
     --vcs-ref "$TEMPLATE_REF" \
@@ -284,9 +284,9 @@ if [[ -n "$previous_tag" ]]; then
   grep -F 'operator sentinel' "$update_target/operator.txt"
   grep -F '# User-owned source sentinel' "$update_target/src/update_lib/__init__.py"
   test ! -e "$update_target/_components"
-  uvx --from copier==9.17.1 copier check-update --quiet "$update_target"
+  uvx --from copier==9.17.2 copier check-update --quiet "$update_target"
 
-  uvx --from copier==9.17.1 copier copy \
+  uvx --from copier==9.17.2 copier copy \
     --quiet \
     --defaults \
     --data project_name=deleted-readme \
@@ -306,7 +306,7 @@ if [[ -n "$previous_tag" ]]; then
   git -C "$deleted_target" config user.email 'acceptance@ternforge.invalid'
   git -C "$deleted_target" add --all
   git -C "$deleted_target" commit --no-verify -m 'test: prepare deleted README fixture'
-  uvx --from copier==9.17.1 copier update \
+  uvx --from copier==9.17.2 copier update \
     --quiet \
     --defaults \
     --vcs-ref "$TEMPLATE_REF" \
