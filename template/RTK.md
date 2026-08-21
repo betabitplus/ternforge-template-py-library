@@ -1,1 +1,0 @@
-[[% include "template/_components/components/project/py/base/template/RTK.md" %]]
