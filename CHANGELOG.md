@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.7.0...v1.7.1) (2026-08-22)
+
+
+### Bug Fixes
+
+* adopt Sphinx-native documentation links ([#164](https://github.com/betabitplus/ternforge-template-py-library/issues/164)) ([da545df](https://github.com/betabitplus/ternforge-template-py-library/commit/da545dfc8353bfc498ad8dee5ae0e693765a178a))
+
 ## [1.7.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.6.4...v1.7.0) (2026-08-22)
 
 
