@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.2](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.7.1...v1.7.2) (2026-08-22)
+
+
+### Bug Fixes
+
+* adopt migration-safe docs CI ([#166](https://github.com/betabitplus/ternforge-template-py-library/issues/166)) ([00c5ff5](https://github.com/betabitplus/ternforge-template-py-library/commit/00c5ff5a084a965ef86e6f902b56f2dc5449fb7b))
+
 ## [1.7.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.7.0...v1.7.1) (2026-08-22)
 
 
