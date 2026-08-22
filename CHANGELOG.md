@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.7.3...v1.8.0) (2026-08-22)
+
+
+### Features
+
+* adopt live docs delivery ([#173](https://github.com/betabitplus/ternforge-template-py-library/issues/173)) ([4bb1864](https://github.com/betabitplus/ternforge-template-py-library/commit/4bb1864ab58922aeba3f7b36af06271011f4b3e3))
+
 ## [1.7.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.7.2...v1.7.3) (2026-08-22)
 
 
