@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.6.4...v1.7.0) (2026-08-22)
+
+
+### Features
+
+* adopt live executable examples ([#162](https://github.com/betabitplus/ternforge-template-py-library/issues/162)) ([6640416](https://github.com/betabitplus/ternforge-template-py-library/commit/6640416287d2098fb3be7b7b170e5259e76463f9))
+
 ## [1.6.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.6.3...v1.6.4) (2026-08-22)
 
 
