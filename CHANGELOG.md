@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.7.2...v1.7.3) (2026-08-22)
+
+
+### Bug Fixes
+
+* adopt final infra CI release pin ([#170](https://github.com/betabitplus/ternforge-template-py-library/issues/170)) ([bc6fd2d](https://github.com/betabitplus/ternforge-template-py-library/commit/bc6fd2d039991dcab74283631a6c207c23ed963b))
+
 ## [1.7.2](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.7.1...v1.7.2) (2026-08-22)
 
 
