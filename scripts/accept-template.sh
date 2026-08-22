@@ -141,6 +141,13 @@ done
 
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
+test -f "$product_target/docs/conf.py"
+test -f "$product_target/docs/index.md"
+test -f "$product_target/docs/api.md"
+test -f "$product_target/examples/acceptance_lib/GALLERY_HEADER.rst"
+test -f "$product_target/tests/test_examples.py"
+test ! -e "$product_target/docs/acceptance_lib/usage.md"
+test ! -e "$product_target/tests/acceptance_lib/e2e/examples/test_examples_smoke.py"
 uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
 
@@ -187,6 +194,16 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
   uv run --no-sync interrogate --fail-under 100 src
   uv run --no-sync deptry .
   uv run --no-sync pytest
+  uv run --no-sync sphinx-build \
+    -W \
+    --keep-going \
+    -D plot_gallery=0 \
+    -b html \
+    docs \
+    "$work_root/docs-html"
+  test -f "$work_root/docs-html/index.html"
+  test -f "$work_root/docs-html/api.html"
+  test -f "$work_root/docs-html/auto_examples/index.html"
 
   requirements="$work_root/runtime-requirements.txt"
   uv export \

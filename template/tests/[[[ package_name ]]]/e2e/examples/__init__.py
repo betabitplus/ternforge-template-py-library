@@ -1,1 +1,0 @@
-[[% include "template/_components/components/project/py/library/template/tests/__package__/e2e/examples/__init__.py" %]]
