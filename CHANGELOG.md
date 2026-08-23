@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.5](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.4...v1.8.5) (2026-08-23)
+
+
+### Bug Fixes
+
+* add gallery thumbnail fallback ([#187](https://github.com/betabitplus/ternforge-template-py-library/issues/187)) ([a3ce8c9](https://github.com/betabitplus/ternforge-template-py-library/commit/a3ce8c9376efe039eb2402f631b6886f6518fe46))
+
 ## [1.8.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.3...v1.8.4) (2026-08-23)
 
 
