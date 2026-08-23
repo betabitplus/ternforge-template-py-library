@@ -144,6 +144,7 @@ grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/c
 test -f "$product_target/docs/conf.py"
 test -f "$product_target/docs/index.md"
 test -f "$product_target/docs/api.md"
+test -f "$product_target/docs/_static/gallery-default.svg"
 test -f "$product_target/examples/acceptance_lib/GALLERY_HEADER.rst"
 test -f "$product_target/tests/test_examples.py"
 test ! -e "$product_target/docs/acceptance_lib/usage.md"
@@ -204,6 +205,9 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
   test -f "$work_root/docs-html/index.html"
   test -f "$work_root/docs-html/api.html"
   test -f "$work_root/docs-html/auto_examples/index.html"
+  test -f "$work_root/docs-html/_images/sphx_glr_config_demo_thumb.svg"
+  grep -F 'sphx_glr_config_demo_thumb.svg' "$work_root/docs-html/auto_examples/index.html"
+  ! grep -F 'sphinx_gallery_tags' "$work_root/docs-html/auto_examples/config_demo.html"
 
   requirements="$work_root/runtime-requirements.txt"
   uv export \
