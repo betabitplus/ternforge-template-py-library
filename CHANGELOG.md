@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.8](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.7...v1.8.8) (2026-08-24)
+
+
+### Bug Fixes
+
+* simplify gallery defaults ([#198](https://github.com/betabitplus/ternforge-template-py-library/issues/198)) ([99841ec](https://github.com/betabitplus/ternforge-template-py-library/commit/99841ec253674a21896a3031adfb88ad9065a0fd))
+
 ## [1.8.7](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.6...v1.8.7) (2026-08-24)
 
 
