@@ -107,6 +107,8 @@ if uvx --from copier==9.17.2 copier copy \
 fi
 
 grep -F 'playwright-browsers: "chromium"' "$browser_target/.github/workflows/ci.yml"
+grep -F 'playwright-browsers: "chromium"' "$browser_target/.github/workflows/docs.yml"
+grep -F 'playwright-browsers: ""' "$default_target/.github/workflows/docs.yml"
 grep -F 'libgl1="1.7.0-1+b2" \' "$devcontainer_packages_target/.devcontainer/Dockerfile"
 ! grep -F 'libgl1=' "$default_target/.devcontainer/Dockerfile"
 grep -F 'runtime-audit-ignore-vulnerabilities: "CVE-2025-69872"' "$waiver_target/.github/workflows/ci.yml"
