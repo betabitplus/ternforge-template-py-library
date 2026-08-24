@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.6](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.5...v1.8.6) (2026-08-24)
+
+
+### Bug Fixes
+
+* propagate Playwright live docs support ([#192](https://github.com/betabitplus/ternforge-template-py-library/issues/192)) ([f1794b5](https://github.com/betabitplus/ternforge-template-py-library/commit/f1794b5890e218e056f577a4378df8f39f0e80d6))
+
 ## [1.8.5](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.4...v1.8.5) (2026-08-23)
 
 
