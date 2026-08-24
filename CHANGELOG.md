@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.7](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.6...v1.8.7) (2026-08-24)
+
+
+### Bug Fixes
+
+* propagate docs change detection update ([#196](https://github.com/betabitplus/ternforge-template-py-library/issues/196)) ([8b67021](https://github.com/betabitplus/ternforge-template-py-library/commit/8b6702183bd742c46d661c2b347d669a95f7b660))
+
 ## [1.8.6](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.5...v1.8.6) (2026-08-24)
 
 
