@@ -1,1 +1,0 @@
-[[% include "template/_components/components/project/py/library/template/docs/__package__/verification/workbench.md" %]]
