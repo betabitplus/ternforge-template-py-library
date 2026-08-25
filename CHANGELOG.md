@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.3...v1.9.4) (2026-08-25)
+
+
+### Bug Fixes
+
+* **template:** propagate gherkin hook ownership ([#213](https://github.com/betabitplus/ternforge-template-py-library/issues/213)) ([a55faee](https://github.com/betabitplus/ternforge-template-py-library/commit/a55faeeb0f8af187cd0aee1f19e492a654853b39))
+
 ## [1.9.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.2...v1.9.3) (2026-08-25)
 
 
