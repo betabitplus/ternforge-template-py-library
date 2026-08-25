@@ -125,9 +125,17 @@ for target in "$default_target" "$product_target" "$tooling_target"; do
   test -f "$target/.github/workflows/ci.yml"
   test -f "$target/.github/workflows/release.yml"
   test -f "$target/.flake8"
+  test -f "$target/.gherkin-lintrc"
   test -f "$target/LICENSE"
   test -f "$target/pyproject.toml"
   test -f "$target/README.md"
+  grep -F 'specifications = [' "$target/pyproject.toml"
+  grep -F '{ include-group = "specifications" }' "$target/pyproject.toml"
+  grep -F 'bdd_features_base_dir = "features"' "$target/pyproject.toml"
+  grep -F 'id: gherkin-format' "$target/.pre-commit-config.yaml"
+  grep -F 'id: gherkin-lint' "$target/.pre-commit-config.yaml"
+  grep -F 'allure-results/' "$target/.gitignore"
+  grep -F 'allure-report/' "$target/.gitignore"
   test -f "$target/scripts/env/setup.sh"
   test -f "$target/scripts/env/doctor.sh"
   test -f "$target/scripts/env/secrets.sh"
@@ -151,6 +159,17 @@ test -f "$product_target/examples/acceptance_lib/GALLERY_HEADER.rst"
 test -f "$product_target/tests/test_examples.py"
 test ! -e "$product_target/docs/acceptance_lib/usage.md"
 test ! -e "$product_target/tests/acceptance_lib/e2e/examples/test_examples_smoke.py"
+mkdir -p "$product_target/features"
+cat >"$product_target/features/template_acceptance.feature" <<'FEATURE'
+Feature: Generated template supports living specifications
+
+  Rule: Gherkin is part of the standard verification toolchain
+
+    Scenario: A generated project contains an executable specification
+      Given the project was generated from the Python library template
+      When repository verification runs
+      Then the specification is formatted and linted
+FEATURE
 uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
 
