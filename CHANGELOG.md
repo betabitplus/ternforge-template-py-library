@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.0...v1.9.1) (2026-08-25)
+
+
+### Bug Fixes
+
+* update shared ci automation ([#206](https://github.com/betabitplus/ternforge-template-py-library/issues/206)) ([4d8c39b](https://github.com/betabitplus/ternforge-template-py-library/commit/4d8c39be1aaa8ebbfed7bfdbbdb64bf7a47516fc))
+
 ## [1.9.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.8...v1.9.0) (2026-08-25)
 
 
