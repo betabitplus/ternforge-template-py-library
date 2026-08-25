@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.8...v1.9.0) (2026-08-25)
+
+
+### Features
+
+* add living specifications baseline ([#203](https://github.com/betabitplus/ternforge-template-py-library/issues/203)) ([48505c1](https://github.com/betabitplus/ternforge-template-py-library/commit/48505c1517d33ca8fc7041bc266c60d81e86656f))
+
 ## [1.8.8](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.8.7...v1.8.8) (2026-08-24)
 
 
