@@ -16,6 +16,7 @@ dev = [
   "interrogate>=1.7",
   # Interactive development
   "ipykernel>=7.3.0",
+  "ipytest>=0.14.2,<0.15",
   "ipython>=9.14.1",
   "mdformat>=0.7.22",
   "mdformat-beautysh>=1.0.0",
@@ -31,16 +32,11 @@ dev = [
   # Shared repo tooling and test support
   "py-lib-policy",
 [[% endif %]]
-[[% if package_name not in ["py_lib_policy", "py_lib_runtime", "py_lib_testkit"] %]]
-  "py-lib-testkit",
-[[% endif %]]
   "pyproject-fmt>=2.23.0",
   "pyright>=1.1.410",
   # Test runner and plugins
-  "pytest>=9.1.0",
   "pytest-cov>=7.1.0",
   "pytest-randomly>=4.1.0",
-  "pytest-recording>=0.13.4",
   "pytest-xdist>=3.8.0",
   # Code quality and formatting
   "radon>=6.0.1",
@@ -51,6 +47,7 @@ dev = [
   "ty>=0.0.50",
   "types-pillow>=10.2.0.20240822",
   "validate-pyproject>=0.25",
+  { include-group = "specifications" },
 ]
 docs = [
   "matplotlib>=3.11.1",
@@ -59,5 +56,14 @@ docs = [
   "sphinx>=8.2.3",
   "sphinx-gallery>=0.21.0",
   "sphinxcontrib-mermaid>=2.1.0",
+]
+specifications = [
+  "allure-pytest-bdd>=2.16,<3",
+[[% if package_name not in ["py_lib_policy", "py_lib_runtime", "py_lib_testkit"] %]]
+  "py-lib-testkit",
+[[% endif %]]
+  "pytest>=9.1.0",
+  "pytest-bdd>=8.1,<9",
+  "pytest-recording>=0.13.4",
 ]
 
