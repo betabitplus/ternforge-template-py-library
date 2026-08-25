@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.2...v1.9.3) (2026-08-25)
+
+
+### Bug Fixes
+
+* **template:** adopt optional e2e baseline ([#211](https://github.com/betabitplus/ternforge-template-py-library/issues/211)) ([12b7f75](https://github.com/betabitplus/ternforge-template-py-library/commit/12b7f75cfba520814664e64abe4de83280661ccb))
+
 ## [1.9.2](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.1...v1.9.2) (2026-08-25)
 
 
