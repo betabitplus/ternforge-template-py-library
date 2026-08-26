@@ -103,13 +103,6 @@ config_class_name:
   help: Public runtime config class name.
   default: SampleLibConfig
 
-e2e_slices:
-  type: yaml
-  help: E2E slices used by Ternforge structural and documentation policy checks.
-  default:
-    - name: public-boundary
-      path: tests/__PACKAGE_NAME__/e2e/public_boundary
-
 ci_playwright_browsers:
   type: yaml
   help: Playwright browser names to install in CI before browser-backed tests.
