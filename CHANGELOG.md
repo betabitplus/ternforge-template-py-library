@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.8](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.7...v1.9.8) (2026-08-26)
+
+
+### Bug Fixes
+
+* remove legacy e2e slices answer ([#222](https://github.com/betabitplus/ternforge-template-py-library/issues/222)) ([d3b58dd](https://github.com/betabitplus/ternforge-template-py-library/commit/d3b58dd2314c9739990f5a0892cb81f6f94959f8))
+
 ## [1.9.7](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.6...v1.9.7) (2026-08-26)
 
 
