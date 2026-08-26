@@ -159,7 +159,7 @@ test -f "$product_target/examples/acceptance_lib/GALLERY_HEADER.rst"
 test -f "$product_target/tests/test_examples.py"
 test ! -e "$product_target/docs/acceptance_lib/usage.md"
 test ! -e "$product_target/tests/acceptance_lib/e2e"
-test ! -e "$product_target/docs/acceptance_lib/verification/e2e"
+test ! -e "$product_target/docs/acceptance_lib/verification"
 mkdir -p "$product_target/features"
 cat >"$product_target/features/template_acceptance.feature" <<'FEATURE'
 Feature: Generated template supports living specifications
