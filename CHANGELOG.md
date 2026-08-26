@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.6](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.5...v1.9.6) (2026-08-26)
+
+
+### Bug Fixes
+
+* remove verification doc machinery ([#218](https://github.com/betabitplus/ternforge-template-py-library/issues/218)) ([7571fb5](https://github.com/betabitplus/ternforge-template-py-library/commit/7571fb5bae8b56d503cf4f1d00aa66eb80d548b6))
+
 ## [1.9.5](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.4...v1.9.5) (2026-08-25)
 
 
