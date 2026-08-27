@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.2](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.12.1...v1.12.2) (2026-08-27)
+
+
+### Bug Fixes
+
+* adopt infra-ci v5.6.1 ([#240](https://github.com/betabitplus/ternforge-template-py-library/issues/240)) ([72c5041](https://github.com/betabitplus/ternforge-template-py-library/commit/72c504181e23adf71071494373e28601e94e4653))
+
 ## [1.12.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.12.0...v1.12.1) (2026-08-27)
 
 
