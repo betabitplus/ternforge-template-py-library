@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.10.0...v1.11.0) (2026-08-27)
+
+
+### Features
+
+* add source implementation traceability ([#234](https://github.com/betabitplus/ternforge-template-py-library/issues/234)) ([e7c2a9a](https://github.com/betabitplus/ternforge-template-py-library/commit/e7c2a9ae3d3545760f813aed65802c64f0aac4bb))
+
 ## [1.10.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.11...v1.10.0) (2026-08-27)
 
 
