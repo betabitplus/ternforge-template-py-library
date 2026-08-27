@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.11...v1.10.0) (2026-08-27)
+
+
+### Features
+
+* adopt requirements graph foundation ([#232](https://github.com/betabitplus/ternforge-template-py-library/issues/232)) ([f627a4a](https://github.com/betabitplus/ternforge-template-py-library/commit/f627a4a3026c38fbf5949266c5c84f174496babd))
+
 ## [1.9.11](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.10...v1.9.11) (2026-08-27)
 
 
