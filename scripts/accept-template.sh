@@ -152,12 +152,18 @@ grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/c
 test -f "$product_target/docs/conf.py"
 test -f "$product_target/docs/index.md"
 test -f "$product_target/docs/api.md"
+test -f "$product_target/docs/_traceability/schemas.json"
+test -f "$product_target/ubproject.toml"
 test ! -e "$product_target/docs/_static/gallery-default.svg"
 test -f "$product_target/examples/acceptance_lib/GALLERY_HEADER.rst"
 test -f "$product_target/tests/test_examples.py"
 test ! -e "$product_target/docs/acceptance_lib/usage.md"
 test ! -e "$product_target/tests/acceptance_lib/e2e"
 test ! -e "$product_target/docs/acceptance_lib/verification"
+grep -F 'sphinx-needs>=8.3.1,<9' "$product_target/pyproject.toml"
+grep -F 'sphinx-test-reports>=1.4,<2' "$product_target/pyproject.toml"
+grep -F 'tag = "v2.2.0"' "$product_target/pyproject.toml"
+grep -F 'run.core = "ctrace"' "$product_target/pyproject.toml"
 uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
 
@@ -204,6 +210,49 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
   uv run --no-sync interrogate --fail-under 100 src
   uv run --no-sync deptry .
   uv run --no-sync pytest
+
+  trace_test="$work_root/test_traceability.py"
+  trace_junit="$product_target/docs/_traceability/acceptance-junit.xml"
+  trace_doc="$product_target/docs/trace_acceptance.rst"
+  cat >"$trace_test" <<'PY'
+import pytest
+
+
+@pytest.mark.verifies("REQ_TEMPLATE_TRACE")
+@pytest.mark.verification_kind("integration")
+def test_generated_traceability_transport() -> None:
+    assert True
+PY
+  uv run --no-sync pytest \
+    --no-cov \
+    -o ternforge_traceability=true \
+    "$trace_test" \
+    --junitxml="$trace_junit"
+  cat >"$trace_doc" <<'RST'
+:orphan:
+
+Traceability acceptance
+=======================
+
+.. goal:: Generated project traceability
+   :id: GOAL_TEMPLATE_TRACE
+
+.. feature:: Import pytest trace evidence
+   :id: FEAT_TEMPLATE_TRACE
+   :derives: GOAL_TEMPLATE_TRACE
+
+.. req:: A traced pytest result is part of the requirements graph
+   :id: REQ_TEMPLATE_TRACE
+   :revision: 1
+   :needs_artifacts: integration
+   :derives: FEAT_TEMPLATE_TRACE
+
+.. test-file:: Pytest trace evidence
+   :id: PYTEST_TEMPLATE_TRACE
+   :file: _traceability/acceptance-junit.xml
+   :auto_suites:
+   :auto_cases:
+RST
   uv run --no-sync sphinx-build \
     -W \
     --keep-going \
@@ -215,8 +264,12 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
   test -f "$work_root/docs-html/api.html"
   test -f "$work_root/docs-html/auto_examples/index.html"
   test -f "$work_root/docs-html/_images/sphx_glr_config_demo_thumb.png"
+  test -f "$work_root/docs-html/trace_acceptance.html"
   grep -F 'sphx_glr_config_demo_thumb.png' "$work_root/docs-html/auto_examples/index.html"
   ! grep -F 'sphinx_gallery_tags' "$work_root/docs-html/auto_examples/config_demo.html"
+  grep -F 'REQ_TEMPLATE_TRACE' "$work_root/docs-html/trace_acceptance.html"
+  grep -F 'test_generated_traceability_transport' "$work_root/docs-html/trace_acceptance.html"
+  rm -f "$trace_doc" "$trace_junit" "$trace_test"
 
   requirements="$work_root/runtime-requirements.txt"
   uv export \
