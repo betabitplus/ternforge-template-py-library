@@ -152,6 +152,7 @@ grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/c
 test -f "$product_target/docs/conf.py"
 test -f "$product_target/docs/index.md"
 test -f "$product_target/docs/api.md"
+test -f "$product_target/docs/traceability.rst"
 test -f "$product_target/docs/_traceability/schemas.json"
 test -f "$product_target/ubproject.toml"
 test ! -e "$product_target/docs/_static/gallery-default.svg"
@@ -160,6 +161,7 @@ test -f "$product_target/tests/test_examples.py"
 test ! -e "$product_target/docs/acceptance_lib/usage.md"
 test ! -e "$product_target/tests/acceptance_lib/e2e"
 test ! -e "$product_target/docs/acceptance_lib/verification"
+grep -F 'sphinx-codelinks>=1.4,<2' "$product_target/pyproject.toml"
 grep -F 'sphinx-needs>=8.3.1,<9' "$product_target/pyproject.toml"
 grep -F 'sphinx-test-reports>=1.4,<2' "$product_target/pyproject.toml"
 grep -F 'tag = "v2.2.0"' "$product_target/pyproject.toml"
@@ -187,6 +189,7 @@ PY
 git -C "$product_target" init --initial-branch=main
 git -C "$product_target" config user.name 'Ternforge template acceptance'
 git -C "$product_target" config user.email 'acceptance@ternforge.invalid'
+git -C "$product_target" remote add origin 'https://github.com/example/acceptance-lib.git'
 (
   cd "$product_target"
   scripts/env/setup.sh
@@ -214,6 +217,10 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
   trace_test="$work_root/test_traceability.py"
   trace_junit="$product_target/docs/_traceability/acceptance-junit.xml"
   trace_doc="$product_target/docs/trace_acceptance.rst"
+  trace_impl="$product_target/src/acceptance_lib/_internal/trace_acceptance.py"
+  cat >"$trace_impl" <<'PY'
+# @impl Generated source trace evidence, IMPL_TEMPLATE_TRACE, [REQ_TEMPLATE_TRACE]
+PY
   cat >"$trace_test" <<'PY'
 import pytest
 
@@ -244,7 +251,7 @@ Traceability acceptance
 .. req:: A traced pytest result is part of the requirements graph
    :id: REQ_TEMPLATE_TRACE
    :revision: 1
-   :needs_artifacts: integration
+   :needs_artifacts: impl;integration
    :derives: FEAT_TEMPLATE_TRACE
 
 .. test-file:: Pytest trace evidence
@@ -262,6 +269,7 @@ RST
     "$work_root/docs-html"
   test -f "$work_root/docs-html/index.html"
   test -f "$work_root/docs-html/api.html"
+  test -f "$work_root/docs-html/traceability.html"
   test -f "$work_root/docs-html/auto_examples/index.html"
   test -f "$work_root/docs-html/_images/sphx_glr_config_demo_thumb.png"
   test -f "$work_root/docs-html/trace_acceptance.html"
@@ -269,7 +277,11 @@ RST
   ! grep -F 'sphinx_gallery_tags' "$work_root/docs-html/auto_examples/config_demo.html"
   grep -F 'REQ_TEMPLATE_TRACE' "$work_root/docs-html/trace_acceptance.html"
   grep -F 'test_generated_traceability_transport' "$work_root/docs-html/trace_acceptance.html"
-  rm -f "$trace_doc" "$trace_junit" "$trace_test"
+  grep -F 'IMPL_TEMPLATE_TRACE' "$work_root/docs-html/traceability.html"
+  trace_source_html="$work_root/docs-html/src/acceptance_lib/_internal/trace_acceptance.html"
+  test -f "$trace_source_html"
+  grep -F 'IMPL_TEMPLATE_TRACE' "$trace_source_html"
+  rm -f "$trace_doc" "$trace_junit" "$trace_test" "$trace_impl"
 
   requirements="$work_root/runtime-requirements.txt"
   uv export \
