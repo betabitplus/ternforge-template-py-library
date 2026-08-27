@@ -1,1 +1,0 @@
-[[% include "template/_components/components/agents/py-library/template/.agents/skills/python-library-rules/references/authoring/reference_authoring_template.md" %]]
