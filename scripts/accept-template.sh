@@ -149,8 +149,8 @@ done
 
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
-grep -F 'python-library.yml@2cbc558251d6a769c3e7ab464a48bbda8f5340e4 # v5.6.0' "$product_target/.github/workflows/ci.yml"
-grep -F 'python-library-docs.yml@2cbc558251d6a769c3e7ab464a48bbda8f5340e4 # v5.6.0' "$product_target/.github/workflows/docs.yml"
+grep -F 'python-library.yml@83d9ab9643d71a64f3b8ad9aca941e8b088e99a3 # v5.6.1' "$product_target/.github/workflows/ci.yml"
+grep -F 'python-library-docs.yml@83d9ab9643d71a64f3b8ad9aca941e8b088e99a3 # v5.6.1' "$product_target/.github/workflows/docs.yml"
 test -f "$product_target/docs/conf.py"
 test -f "$product_target/docs/index.md"
 test -f "$product_target/docs/api.md"
