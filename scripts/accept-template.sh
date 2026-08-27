@@ -166,7 +166,7 @@ test ! -e "$product_target/docs/acceptance_lib/verification"
 grep -F 'sphinx-codelinks>=1.4,<2' "$product_target/pyproject.toml"
 grep -F 'sphinx-needs>=8.3.1,<9' "$product_target/pyproject.toml"
 grep -F 'sphinx-test-reports>=1.4,<2' "$product_target/pyproject.toml"
-grep -F 'tag = "v2.2.0"' "$product_target/pyproject.toml"
+grep -F 'tag = "v2.2.1"' "$product_target/pyproject.toml"
 grep -F 'run.core = "ctrace"' "$product_target/pyproject.toml"
 uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
