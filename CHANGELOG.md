@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.11](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.10...v1.9.11) (2026-08-27)
+
+
+### Bug Fixes
+
+* remove legacy docs and test template ([#230](https://github.com/betabitplus/ternforge-template-py-library/issues/230)) ([986faf2](https://github.com/betabitplus/ternforge-template-py-library/commit/986faf2d6a102eb8f38c81a8c33bda5ce5fd1115))
+
 ## [1.9.10](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.9.9...v1.9.10) (2026-08-26)
 
 
