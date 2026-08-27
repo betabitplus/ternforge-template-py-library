@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.11.0...v1.12.0) (2026-08-27)
+
+
+### Features
+
+* adopt unified Python evidence CI ([#236](https://github.com/betabitplus/ternforge-template-py-library/issues/236)) ([68393a0](https://github.com/betabitplus/ternforge-template-py-library/commit/68393a0def25c291f7233df72a0e490d9aab35b4))
+
 ## [1.11.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.10.0...v1.11.0) (2026-08-27)
 
 
