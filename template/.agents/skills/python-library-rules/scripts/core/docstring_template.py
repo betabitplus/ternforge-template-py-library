@@ -1,1 +1,0 @@
-[[% include "template/_components/components/agents/py-library/template/.agents/skills/python-library-rules/scripts/core/docstring_template.py" %]]

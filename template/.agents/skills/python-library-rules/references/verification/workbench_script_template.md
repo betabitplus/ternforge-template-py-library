@@ -1,1 +1,0 @@
-[[% include "template/_components/components/agents/py-library/template/.agents/skills/python-library-rules/references/verification/workbench_script_template.md" %]]

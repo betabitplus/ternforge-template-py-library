@@ -1,1 +1,0 @@
-[[% include "template/_components/components/agents/py-library/template/.agents/skills/python-library-rules/scripts/docs/vertical_slice_doc_template.py" %]]
