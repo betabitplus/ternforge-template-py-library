@@ -150,7 +150,8 @@ done
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'python-library.yml@9e94e7b6fec77b98cf89b3f886772d58e8747a2f # v5.6.2' "$product_target/.github/workflows/ci.yml"
-grep -F 'python-library-docs.yml@9e94e7b6fec77b98cf89b3f886772d58e8747a2f # v5.6.2' "$product_target/.github/workflows/docs.yml"
+grep -F 'python-library-docs.yml@1c7108f14ff2013e188227dc2fea02146fed6e8d # v5.7.0' "$product_target/.github/workflows/docs.yml"
+grep -F 'release-dossier: true' "$product_target/.github/workflows/docs.yml"
 grep -F '"ChinmaySingh.gherkin-lens"' "$product_target/.vscode/extensions.json"
 grep -F '"useblocks.ubcode"' "$product_target/.vscode/extensions.json"
 test -f "$product_target/docs/conf.py"
@@ -169,8 +170,11 @@ test ! -e "$product_target/docs/acceptance_lib/verification"
 grep -F 'sphinx-codelinks>=1.4,<2' "$product_target/pyproject.toml"
 grep -F 'sphinx-llm>=1,<2' "$product_target/pyproject.toml"
 grep -F 'sphinx-needs>=8.3.1,<9' "$product_target/pyproject.toml"
+grep -F 'sphinx-simplepdf>=1.7,<2' "$product_target/pyproject.toml"
 grep -F 'sphinx-test-reports>=1.4,<2' "$product_target/pyproject.toml"
 grep -F '"sphinx_llm.txt"' "$product_target/docs/conf.py"
+grep -F '"sphinx_simplepdf"' "$product_target/docs/conf.py"
+grep -F 'simplepdf_file_name = "release-dossier.pdf"' "$product_target/docs/conf.py"
 grep -F 'tag = "v2.2.1"' "$product_target/pyproject.toml"
 grep -F 'run.core = "ctrace"' "$product_target/pyproject.toml"
 uv run --python 3.13 python - "$product_target" <<'PY'
@@ -304,6 +308,17 @@ RST
   trace_source_html="$work_root/docs-html/src/acceptance_lib/_internal/trace_acceptance.html"
   test -f "$trace_source_html"
   grep -F 'IMPL_TEMPLATE_TRACE' "$trace_source_html"
+  if [[ "$(uname -s)" == Linux ]]; then
+    uv run --no-sync sphinx-build \
+      -W \
+      --keep-going \
+      -D plot_gallery=0 \
+      -D llms_txt_enabled=0 \
+      -b simplepdf \
+      docs \
+      "$work_root/docs-pdf"
+    test -s "$work_root/docs-pdf/release-dossier.pdf"
+  fi
   rm -f "$trace_doc" "$trace_junit" "$trace_test" "$trace_impl"
 
   requirements="$work_root/runtime-requirements.txt"
