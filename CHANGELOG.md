@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.12.3...v1.13.0) (2026-08-28)
+
+
+### Features
+
+* recommend GherkinLens v2 ([#244](https://github.com/betabitplus/ternforge-template-py-library/issues/244)) ([dfb9263](https://github.com/betabitplus/ternforge-template-py-library/commit/dfb926357151bf1cc2b56ad2f9bb3047909716f6))
+
 ## [1.12.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.12.2...v1.12.3) (2026-08-28)
 
 
