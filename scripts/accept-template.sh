@@ -150,7 +150,7 @@ done
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
 grep -F 'python-library.yml@9e94e7b6fec77b98cf89b3f886772d58e8747a2f # v5.6.2' "$product_target/.github/workflows/ci.yml"
-grep -F 'python-library-docs.yml@1c7108f14ff2013e188227dc2fea02146fed6e8d # v5.7.0' "$product_target/.github/workflows/docs.yml"
+grep -F 'python-library-docs.yml@8363c097308bc36acfc7fdc89acd6eb10206d69e # v5.7.1' "$product_target/.github/workflows/docs.yml"
 grep -F 'release-dossier: true' "$product_target/.github/workflows/docs.yml"
 grep -F '"ChinmaySingh.gherkin-lens"' "$product_target/.vscode/extensions.json"
 grep -F '"useblocks.ubcode"' "$product_target/.vscode/extensions.json"
