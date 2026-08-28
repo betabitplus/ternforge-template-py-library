@@ -1,1 +1,8 @@
 [[% include "template/_components/components/project/py/library/template/ubproject.toml" %]]
+
+[ubconnect.to_github_issues]
+repo = "[[[ github_owner ]]]/[[[ repository_name ]]]"
+
+[ubconnect.validate_github_issues]
+repo = "[[[ github_owner ]]]/[[[ repository_name ]]]"
+needsjson_path = "docs/_build/html/needs.json"
