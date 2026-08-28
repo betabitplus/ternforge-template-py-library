@@ -308,15 +308,17 @@ RST
   trace_source_html="$work_root/docs-html/src/acceptance_lib/_internal/trace_acceptance.html"
   test -f "$trace_source_html"
   grep -F 'IMPL_TEMPLATE_TRACE' "$trace_source_html"
-  uv run --no-sync sphinx-build \
-    -W \
-    --keep-going \
-    -D plot_gallery=0 \
-    -D llms_txt_enabled=0 \
-    -b simplepdf \
-    docs \
-    "$work_root/docs-pdf"
-  test -s "$work_root/docs-pdf/release-dossier.pdf"
+  if [[ "$(uname -s)" == Linux ]]; then
+    uv run --no-sync sphinx-build \
+      -W \
+      --keep-going \
+      -D plot_gallery=0 \
+      -D llms_txt_enabled=0 \
+      -b simplepdf \
+      docs \
+      "$work_root/docs-pdf"
+    test -s "$work_root/docs-pdf/release-dossier.pdf"
+  fi
   rm -f "$trace_doc" "$trace_junit" "$trace_test" "$trace_impl"
 
   requirements="$work_root/runtime-requirements.txt"
