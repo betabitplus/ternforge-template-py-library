@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.14.0...v1.15.0) (2026-08-28)
+
+
+### Features
+
+* add ubConnect GitHub issue tracing ([#248](https://github.com/betabitplus/ternforge-template-py-library/issues/248)) ([3ece06c](https://github.com/betabitplus/ternforge-template-py-library/commit/3ece06ce5ced2e28beadf84c3760a3d9f2ea332c))
+
 ## [1.14.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.13.0...v1.14.0) (2026-08-28)
 
 
