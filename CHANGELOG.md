@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.17.3...v1.17.4) (2026-08-28)
+
+
+### Bug Fixes
+
+* propagate py-lib-testkit 2.2.2 ([#260](https://github.com/betabitplus/ternforge-template-py-library/issues/260)) ([5a9ba51](https://github.com/betabitplus/ternforge-template-py-library/commit/5a9ba51be2bb52279b0777b6e85e5eded596cb12))
+
 ## [1.17.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.17.2...v1.17.3) (2026-08-28)
 
 
