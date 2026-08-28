@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.17.0...v1.17.1) (2026-08-28)
+
+
+### Bug Fixes
+
+* keep agent markdown gallery offline ([#254](https://github.com/betabitplus/ternforge-template-py-library/issues/254)) ([65f400e](https://github.com/betabitplus/ternforge-template-py-library/commit/65f400eb776f284bbdc168c10fd6647cda33367f))
+
 ## [1.17.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.16.0...v1.17.0) (2026-08-28)
 
 
