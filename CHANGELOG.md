@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.2](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.17.1...v1.17.2) (2026-08-28)
+
+
+### Bug Fixes
+
+* update hosted release dossier workflow ([#256](https://github.com/betabitplus/ternforge-template-py-library/issues/256)) ([9d377c1](https://github.com/betabitplus/ternforge-template-py-library/commit/9d377c19a1a5638a5c7a9562ff1bd1261b676c8c))
+
 ## [1.17.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.17.0...v1.17.1) (2026-08-28)
 
 
