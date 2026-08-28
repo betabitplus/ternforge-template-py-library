@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.16.0...v1.17.0) (2026-08-28)
+
+
+### Features
+
+* deliver SimplePDF release dossier ([#252](https://github.com/betabitplus/ternforge-template-py-library/issues/252)) ([02b9999](https://github.com/betabitplus/ternforge-template-py-library/commit/02b9999e650f37b7791f4192409f07cb908a40ad))
+
 ## [1.16.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.15.0...v1.16.0) (2026-08-28)
 
 
