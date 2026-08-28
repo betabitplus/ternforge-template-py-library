@@ -149,8 +149,8 @@ done
 
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
-grep -F 'python-library.yml@9e94e7b6fec77b98cf89b3f886772d58e8747a2f # v5.6.2' "$product_target/.github/workflows/ci.yml"
-grep -F 'python-library-docs.yml@8363c097308bc36acfc7fdc89acd6eb10206d69e # v5.7.1' "$product_target/.github/workflows/docs.yml"
+grep -F 'python-library.yml@d96ae241cb86351325d7ce7d9dfc3b3f1aa4101d # v5.7.2' "$product_target/.github/workflows/ci.yml"
+grep -F 'python-library-docs.yml@d96ae241cb86351325d7ce7d9dfc3b3f1aa4101d # v5.7.2' "$product_target/.github/workflows/docs.yml"
 grep -F 'release-dossier: true' "$product_target/.github/workflows/docs.yml"
 grep -F '"ChinmaySingh.gherkin-lens"' "$product_target/.vscode/extensions.json"
 grep -F '"useblocks.ubcode"' "$product_target/.vscode/extensions.json"
@@ -178,6 +178,8 @@ grep -F 'simplepdf_file_name = "release-dossier.pdf"' "$product_target/docs/conf
 grep -F 'sphinx_tags.has("sphinx_llm_markdown")' "$product_target/docs/conf.py"
 grep -F 'tag = "v2.2.1"' "$product_target/pyproject.toml"
 grep -F 'run.core = "ctrace"' "$product_target/pyproject.toml"
+grep -F 'revision-pinned `verifies` reference' "$product_target/AGENTS.md"
+grep -F '"result": {"const": "passed"}' "$product_target/docs/_traceability/schemas.json"
 uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
 
@@ -241,13 +243,13 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
   trace_doc="$product_target/docs/trace_acceptance.rst"
   trace_impl="$product_target/src/acceptance_lib/_internal/trace_acceptance.py"
   cat >"$trace_impl" <<'PY'
-# @impl Generated source trace evidence, IMPL_TEMPLATE_TRACE, [REQ_TEMPLATE_TRACE]
+# @impl Generated source trace evidence, IMPL_TEMPLATE_TRACE, [REQ_TEMPLATE_TRACE[revision==1]]
 PY
   cat >"$trace_test" <<'PY'
 import pytest
 
 
-@pytest.mark.verifies("REQ_TEMPLATE_TRACE")
+@pytest.mark.verifies("REQ_TEMPLATE_TRACE[revision==1]")
 @pytest.mark.verification_kind("integration")
 def test_generated_traceability_transport() -> None:
     assert True
