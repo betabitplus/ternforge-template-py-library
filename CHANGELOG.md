@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.15.0...v1.16.0) (2026-08-28)
+
+
+### Features
+
+* publish agent-readable documentation ([#250](https://github.com/betabitplus/ternforge-template-py-library/issues/250)) ([9837232](https://github.com/betabitplus/ternforge-template-py-library/commit/9837232621028e0b9a326eaad7dca969f826fbb5))
+
 ## [1.15.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.14.0...v1.15.0) (2026-08-28)
 
 
