@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.13.0...v1.14.0) (2026-08-28)
+
+
+### Features
+
+* integrate ubCode graph tooling ([#246](https://github.com/betabitplus/ternforge-template-py-library/issues/246)) ([5652478](https://github.com/betabitplus/ternforge-template-py-library/commit/56524789673fb2aac472733dfc0751ced5d6904f))
+
 ## [1.13.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.12.3...v1.13.0) (2026-08-28)
 
 
