@@ -182,6 +182,7 @@ import tomllib
 
 root = pathlib.Path(sys.argv[1])
 pyproject = tomllib.loads(root.joinpath("pyproject.toml").read_text(encoding="utf-8"))
+ubproject = tomllib.loads(root.joinpath("ubproject.toml").read_text(encoding="utf-8"))
 manifest = json.loads(root.joinpath(".release-please-manifest.json").read_text(encoding="utf-8"))
 assert pyproject["project"]["version"] == "0.1.0"
 assert manifest["."] == "0.1.0"
@@ -189,6 +190,15 @@ assert pyproject["project"]["version"] == manifest["."]
 assert pyproject["project"]["name"] == "acceptance-lib"
 assert pyproject["tool"]["ternforge"]["primary_package"] == "acceptance_lib"
 assert re.fullmatch(r"==\d+\.\d+\.\d+", pyproject["tool"]["uv"]["required-version"])
+issue_schema = ubproject["needs"]["fields"]["issue"]["schema"]
+assert issue_schema["type"] == "array"
+assert issue_schema["items"]["type"] == "integer"
+assert issue_schema["uniqueItems"] is True
+ubconnect = ubproject["ubconnect"]
+assert ubconnect["to_github_issues"]["repo"] == "betabitplus/acceptance-lib"
+assert ubconnect["validate_github_issues"]["repo"] == "betabitplus/acceptance-lib"
+assert ubconnect["validate_github_issues"]["needsjson_path"] == "docs/_build/html/needs.json"
+assert "from_github_issues" not in ubconnect
 PY
 
 git -C "$product_target" init --initial-branch=main
