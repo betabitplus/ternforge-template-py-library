@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.17.2...v1.17.3) (2026-08-28)
+
+
+### Bug Fixes
+
+* propagate strict traceability evidence ([#258](https://github.com/betabitplus/ternforge-template-py-library/issues/258)) ([6e82b09](https://github.com/betabitplus/ternforge-template-py-library/commit/6e82b09eb33c270618597dc8effbfdf5c9aff8d3))
+
 ## [1.17.2](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.17.1...v1.17.2) (2026-08-28)
 
 
