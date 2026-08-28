@@ -134,6 +134,11 @@ for target in "$default_target" "$product_target" "$tooling_target"; do
   grep -F 'id: gherkin-lint' "$target/.pre-commit-config.yaml"
   grep -F 'allure-results/' "$target/.gitignore"
   grep -F 'allure-report/' "$target/.gitignore"
+  grep -F 'test-results/' "$target/.gitignore"
+  grep -F 'docs/_traceability/local-pytest.xml' "$target/.gitignore"
+  grep -F 'extend-ignore = E203,E501' "$target/.flake8"
+  grep -F 'lint.task-tags = [ "TODO", "FIXME", "XXX", "@impl" ]' "$target/pyproject.toml"
+  grep -F 'lint.pycodestyle.ignore-overlong-task-comments = true' "$target/pyproject.toml"
   test -f "$target/scripts/env/setup.sh"
   test -f "$target/scripts/env/doctor.sh"
   test -f "$target/scripts/env/secrets.sh"
@@ -158,6 +163,7 @@ test -f "$product_target/docs/conf.py"
 test -f "$product_target/docs/index.md"
 test -f "$product_target/docs/api.md"
 test -f "$product_target/docs/traceability.rst"
+test -f "$product_target/docs/local-pytest-evidence.rst"
 test -f "$product_target/docs/_traceability/schemas.json"
 test -f "$product_target/ubproject.toml"
 grep -F 'index_on_save = true' "$product_target/ubproject.toml"
@@ -175,6 +181,7 @@ grep -F 'sphinx-test-reports>=1.4,<2' "$product_target/pyproject.toml"
 grep -F '"sphinx_llm.txt"' "$product_target/docs/conf.py"
 grep -F '"sphinx_simplepdf"' "$product_target/docs/conf.py"
 grep -F 'simplepdf_file_name = "release-dossier.pdf"' "$product_target/docs/conf.py"
+grep -F 'exclude_patterns.append("local-pytest-evidence.rst")' "$product_target/docs/conf.py"
 grep -F 'sphinx_tags.has("sphinx_llm_markdown")' "$product_target/docs/conf.py"
 grep -F 'tag = "v2.2.2"' "$product_target/pyproject.toml"
 grep -F 'run.core = "ctrace"' "$product_target/pyproject.toml"
@@ -240,11 +247,16 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
 
   trace_test="$work_root/test_traceability.py"
   trace_junit="$product_target/docs/_traceability/acceptance-junit.xml"
+  local_junit="$product_target/docs/_traceability/local-pytest.xml"
   trace_doc="$product_target/docs/trace_acceptance.rst"
   trace_impl="$product_target/src/acceptance_lib/_internal/trace_acceptance.py"
   cat >"$trace_impl" <<'PY'
+"""Traceability acceptance implementation."""
+
 # @impl Generated source trace evidence, IMPL_TEMPLATE_TRACE, [REQ_TEMPLATE_TRACE[revision==1]]
 PY
+  uv run --no-sync ruff check "$trace_impl"
+  uv run --no-sync flake8 "$trace_impl"
   cat >"$trace_test" <<'PY'
 import pytest
 
@@ -259,6 +271,10 @@ PY
     -o ternforge_traceability=true \
     "$trace_test" \
     --junitxml="$trace_junit"
+  uv run --no-sync pytest \
+    --no-cov \
+    tests/test_examples.py \
+    --junitxml="$local_junit"
   cat >"$trace_doc" <<'RST'
 :orphan:
 
@@ -297,6 +313,8 @@ RST
   test -f "$work_root/docs-html/auto_examples/index.html"
   test -f "$work_root/docs-html/_images/sphx_glr_config_demo_thumb.png"
   test -f "$work_root/docs-html/trace_acceptance.html"
+  test -f "$work_root/docs-html/local-pytest-evidence.html"
+  grep -F 'test_examples_import_without_network' "$work_root/docs-html/local-pytest-evidence.html"
   test -s "$work_root/docs-html/llms.txt"
   test -s "$work_root/docs-html/llms-full.txt"
   test -s "$work_root/docs-html/trace_acceptance.html.md"
@@ -322,7 +340,7 @@ RST
       "$work_root/docs-pdf"
     test -s "$work_root/docs-pdf/release-dossier.pdf"
   fi
-  rm -f "$trace_doc" "$trace_junit" "$trace_test" "$trace_impl"
+  rm -f "$trace_doc" "$trace_junit" "$local_junit" "$trace_test" "$trace_impl"
 
   requirements="$work_root/runtime-requirements.txt"
   uv export \
