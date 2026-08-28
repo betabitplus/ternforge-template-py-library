@@ -175,7 +175,7 @@ grep -F 'sphinx-test-reports>=1.4,<2' "$product_target/pyproject.toml"
 grep -F '"sphinx_llm.txt"' "$product_target/docs/conf.py"
 grep -F '"sphinx_simplepdf"' "$product_target/docs/conf.py"
 grep -F 'simplepdf_file_name = "release-dossier.pdf"' "$product_target/docs/conf.py"
-grep -F 'if "sphinx_llm_markdown" in tags:' "$product_target/docs/conf.py"
+grep -F 'sphinx_tags.has("sphinx_llm_markdown")' "$product_target/docs/conf.py"
 grep -F 'tag = "v2.2.1"' "$product_target/pyproject.toml"
 grep -F 'run.core = "ctrace"' "$product_target/pyproject.toml"
 uv run --python 3.13 python - "$product_target" <<'PY'
