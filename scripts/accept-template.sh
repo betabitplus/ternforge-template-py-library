@@ -137,7 +137,7 @@ for target in "$default_target" "$product_target" "$tooling_target"; do
   grep -F 'test-results/' "$target/.gitignore"
   grep -F 'docs/_traceability/local-pytest.xml' "$target/.gitignore"
   grep -F 'extend-ignore = E203,E501' "$target/.flake8"
-  grep -F 'lint.task-tags = [ "TODO", "FIXME", "XXX", "@impl" ]' "$target/pyproject.toml"
+  grep -F 'lint.task-tags = [ "@impl", "FIXME", "TODO", "XXX" ]' "$target/pyproject.toml"
   grep -F 'lint.pycodestyle.ignore-overlong-task-comments = true' "$target/pyproject.toml"
   test -f "$target/scripts/env/setup.sh"
   test -f "$target/scripts/env/doctor.sh"
