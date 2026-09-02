@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.18.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.17.5...v1.18.0) (2026-09-02)
+
+
+### Features
+
+* adopt engineering experiment conventions ([#265](https://github.com/betabitplus/ternforge-template-py-library/issues/265)) ([86de374](https://github.com/betabitplus/ternforge-template-py-library/commit/86de374989faa19e06f9bcc44da93bd10854f75f))
+
 ## [1.17.5](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.17.4...v1.17.5) (2026-08-29)
 
 
