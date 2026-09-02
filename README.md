@@ -3,9 +3,9 @@
 Released Copier template for complete standalone Python libraries.
 
 The generated product includes the Python package boundary, tests, documentation,
-examples, workbench, agent guidance, locked quality and security tooling,
-release workflows, automatic direnv/SOPS secret loading, and a digest-pinned
-devcontainer.
+examples, optional isolated engineering experiments, agent guidance, locked quality
+and security tooling, release workflows, automatic direnv/SOPS secret loading, and
+a digest-pinned devcontainer.
 
 ## Source contract
 

@@ -19,7 +19,7 @@ _exclude:
   - "[[% if _copier_operation == 'update' -%]]tests/**[[% endif %]]"
   - "[[% if _copier_operation == 'update' -%]]docs/**[[% endif %]]"
   - "[[% if _copier_operation == 'update' -%]]examples/**[[% endif %]]"
-  - "[[% if _copier_operation == 'update' -%]]workbench/**[[% endif %]]"
+  - "[[% if _copier_operation == 'update' -%]]experiments/**[[% endif %]]"
   - "[[% if _copier_operation == 'update' -%]]README.md[[% endif %]]"
   - "[[% if _copier_operation == 'update' -%]]CHANGELOG.md[[% endif %]]"
 
