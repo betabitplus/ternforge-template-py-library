@@ -132,11 +132,15 @@ for target in "$default_target" "$product_target" "$tooling_target"; do
   grep -F 'bdd_features_base_dir = "features"' "$target/pyproject.toml"
   grep -F 'id: gherkin-format' "$target/.pre-commit-config.yaml"
   grep -F 'id: gherkin-lint' "$target/.pre-commit-config.yaml"
+  grep -F 'id: ruff-experiments' "$target/.pre-commit-config.yaml"
+  grep -F 'id: ruff-format-experiments' "$target/.pre-commit-config.yaml"
   grep -F 'allure-results/' "$target/.gitignore"
   grep -F 'allure-report/' "$target/.gitignore"
   grep -F 'test-results/' "$target/.gitignore"
   grep -F 'docs/_traceability/local-pytest.xml' "$target/.gitignore"
   grep -F 'extend-ignore = E203,E501' "$target/.flake8"
+  grep -F 'extend-exclude = [ "experiments/**/report/*.ipynb" ]' "$target/pyproject.toml"
+  grep -F 'lint.per-file-ignores."experiments/*" = [' "$target/pyproject.toml"
   grep -F 'lint.task-tags = [ "@impl", "FIXME", "TODO", "XXX" ]' "$target/pyproject.toml"
   grep -F 'lint.pycodestyle.ignore-overlong-task-comments = true' "$target/pyproject.toml"
   test -f "$target/scripts/env/setup.sh"
@@ -146,6 +150,8 @@ for target in "$default_target" "$product_target" "$tooling_target"; do
   test -f "$target/.devcontainer/devcontainer.json"
   test ! -e "$target/_components"
   test ! -e "$target/template/_components"
+  test ! -e "$target/workbench"
+  test ! -e "$target/scripts/reproduce_running_loop.py"
   test -x "$target/scripts/env/setup.sh"
   test -x "$target/scripts/env/doctor.sh"
   test -x "$target/scripts/env/secrets.sh"
@@ -424,6 +430,9 @@ if [[ -n "$previous_tag" ]]; then
   printf '# Operator-owned README\n' >"$update_target/README.md"
   printf 'operator sentinel\n' >"$update_target/operator.txt"
   printf '\n# User-owned source sentinel\n' >>"$update_target/src/update_lib/__init__.py"
+  experiment_sentinel="$update_target/experiments/update_lib/exp_0001_operator/notes.txt"
+  mkdir -p "$(dirname "$experiment_sentinel")"
+  printf 'operator experiment sentinel\n' >"$experiment_sentinel"
   git -C "$update_target" init --initial-branch=main
   git -C "$update_target" config user.name 'Ternforge update acceptance'
   git -C "$update_target" config user.email 'acceptance@ternforge.invalid'
@@ -437,6 +446,7 @@ if [[ -n "$previous_tag" ]]; then
   grep -F '# Operator-owned README' "$update_target/README.md"
   grep -F 'operator sentinel' "$update_target/operator.txt"
   grep -F '# User-owned source sentinel' "$update_target/src/update_lib/__init__.py"
+  grep -F 'operator experiment sentinel' "$experiment_sentinel"
   test ! -e "$update_target/_components"
   git -C "$update_target" add --all
   git -C "$update_target" commit --allow-empty --no-verify -m 'test: record updated fixture'

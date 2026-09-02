@@ -1,1 +1,0 @@
-[[% include "template/_components/components/project/py/library/template/workbench/__package__/__init__.py" %]]
