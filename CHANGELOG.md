@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.18.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.18.0...v1.18.1) (2026-09-02)
+
+
+### Bug Fixes
+
+* allow retained experiment inputs ([#267](https://github.com/betabitplus/ternforge-template-py-library/issues/267)) ([9cff38e](https://github.com/betabitplus/ternforge-template-py-library/commit/9cff38e4d844e92fac8d7b1f5ffa2828766c4022))
+
 ## [1.18.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.17.5...v1.18.0) (2026-09-02)
 
 
