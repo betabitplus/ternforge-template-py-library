@@ -170,7 +170,6 @@ test -f "$product_target/docs/index.md"
 test -f "$product_target/docs/api.md"
 test -f "$product_target/docs/traceability.rst"
 test -f "$product_target/docs/local-pytest-evidence.rst"
-test -f "$product_target/docs/_traceability/schemas.json"
 test -f "$product_target/ubproject.toml"
 grep -F 'index_on_save = true' "$product_target/ubproject.toml"
 test ! -e "$product_target/docs/_static/gallery-default.svg"
@@ -179,20 +178,19 @@ test -f "$product_target/tests/test_examples.py"
 test ! -e "$product_target/docs/acceptance_lib/usage.md"
 test ! -e "$product_target/tests/acceptance_lib/e2e"
 test ! -e "$product_target/docs/acceptance_lib/verification"
-grep -F 'sphinx-codelinks>=1.4,<2' "$product_target/pyproject.toml"
-grep -F 'sphinx-llm>=1,<2' "$product_target/pyproject.toml"
-grep -F 'sphinx-needs>=8.3.1,<9' "$product_target/pyproject.toml"
-grep -F 'sphinx-simplepdf>=1.7,<2' "$product_target/pyproject.toml"
-grep -F 'sphinx-test-reports>=1.4,<2' "$product_target/pyproject.toml"
-grep -F '"sphinx_llm.txt"' "$product_target/docs/conf.py"
-grep -F '"sphinx_simplepdf"' "$product_target/docs/conf.py"
-grep -F 'simplepdf_file_name = "release-dossier.pdf"' "$product_target/docs/conf.py"
+test ! -e "$product_target/docs/_traceability/schemas.json"
+test ! -e "$product_target/.ternforge/docops/engineering.toml"
+grep -F 'ternforge-docops>=0.2.2,<0.3' "$product_target/pyproject.toml"
+grep -F 'tag = "v0.2.2"' "$product_target/pyproject.toml"
+grep -F 'tag = "v2.3.0"' "$product_target/pyproject.toml"
+! grep -F 'allure-pytest-bdd' "$product_target/pyproject.toml"
+! grep -F 'sphinx-needs' "$product_target/pyproject.toml"
+grep -F 'extensions = ["ternforge_docops._api.sphinx_python"]' "$product_target/docs/conf.py"
 grep -F 'exclude_patterns.append("local-pytest-evidence.rst")' "$product_target/docs/conf.py"
-grep -F 'sphinx_tags.has("sphinx_llm_markdown")' "$product_target/docs/conf.py"
-grep -F 'tag = "v2.2.2"' "$product_target/pyproject.toml"
+grep -F 'extend = ".ternforge/docops/engineering.toml"' "$product_target/ubproject.toml"
 grep -F 'run.core = "ctrace"' "$product_target/pyproject.toml"
 grep -F 'revision-pinned `verifies` reference' "$product_target/AGENTS.md"
-grep -F '"result": {"const": "passed"}' "$product_target/docs/_traceability/schemas.json"
+grep -F 'minimum required evidence with `required_evidence`' "$product_target/AGENTS.md"
 uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
 
@@ -212,10 +210,9 @@ assert pyproject["project"]["version"] == manifest["."]
 assert pyproject["project"]["name"] == "acceptance-lib"
 assert pyproject["tool"]["ternforge"]["primary_package"] == "acceptance_lib"
 assert re.fullmatch(r"==\d+\.\d+\.\d+", pyproject["tool"]["uv"]["required-version"])
-issue_schema = ubproject["needs"]["fields"]["issue"]["schema"]
-assert issue_schema["type"] == "array"
-assert issue_schema["items"]["type"] == "integer"
-assert issue_schema["uniqueItems"] is True
+assert "ternforge-docops>=0.2.2,<0.3" in pyproject["dependency-groups"]["docs"]
+assert ubproject["extend"] == ".ternforge/docops/engineering.toml"
+assert ubproject["codelinks"]["local_url_field"] == "source_url"
 ubconnect = ubproject["ubconnect"]
 assert ubconnect["to_github_issues"]["repo"] == "betabitplus/acceptance-lib"
 assert ubconnect["validate_github_issues"]["repo"] == "betabitplus/acceptance-lib"
@@ -230,7 +227,11 @@ git -C "$product_target" remote add origin 'https://github.com/example/acceptanc
 (
   cd "$product_target"
   scripts/env/setup.sh
+  uv run --no-sync ternforge-docops check
 )
+test -f "$product_target/.ternforge/docops/engineering.toml"
+test -f "$product_target/.ternforge/docops/schemas.json"
+grep -F '"result": {"const": "passed"}' "$product_target/.ternforge/docops/schemas.json"
 git -C "$product_target" add --all
 git -C "$product_target" commit --no-verify -m 'test: prepare generated product acceptance'
 
@@ -296,8 +297,9 @@ Traceability acceptance
 
 .. req:: A traced pytest result is part of the requirements graph
    :id: REQ_TEMPLATE_TRACE
+   :status: accepted
    :revision: 1
-   :needs_artifacts: impl;integration
+   :required_evidence: impl;integration
    :derives: FEAT_TEMPLATE_TRACE
 
 .. test-file:: Pytest trace evidence
@@ -306,45 +308,33 @@ Traceability acceptance
    :auto_suites:
    :auto_cases:
 RST
-  uv run --no-sync sphinx-build \
-    -W \
-    --keep-going \
-    -D plot_gallery=0 \
-    -b html \
-    docs \
-    "$work_root/docs-html"
-  test -f "$work_root/docs-html/index.html"
-  test -f "$work_root/docs-html/api.html"
-  test -f "$work_root/docs-html/traceability.html"
-  test -f "$work_root/docs-html/auto_examples/index.html"
-  test -f "$work_root/docs-html/_images/sphx_glr_config_demo_thumb.png"
-  test -f "$work_root/docs-html/trace_acceptance.html"
-  test -f "$work_root/docs-html/local-pytest-evidence.html"
-  grep -F 'test_examples_import_without_network' "$work_root/docs-html/local-pytest-evidence.html"
-  test -s "$work_root/docs-html/llms.txt"
-  test -s "$work_root/docs-html/llms-full.txt"
-  test -s "$work_root/docs-html/trace_acceptance.html.md"
-  grep -F 'sphx_glr_config_demo_thumb.png' "$work_root/docs-html/auto_examples/index.html"
-  ! grep -F 'sphinx_gallery_tags' "$work_root/docs-html/auto_examples/config_demo.html"
-  grep -F 'REQ_TEMPLATE_TRACE' "$work_root/docs-html/trace_acceptance.html"
-  grep -F 'test_generated_traceability_transport' "$work_root/docs-html/trace_acceptance.html"
-  grep -F 'IMPL_TEMPLATE_TRACE' "$work_root/docs-html/traceability.html"
-  grep -F 'REQ_TEMPLATE_TRACE' "$work_root/docs-html/llms-full.txt"
-  grep -F 'IMPL_TEMPLATE_TRACE' "$work_root/docs-html/llms-full.txt"
-  grep -F 'test_generated_traceability_transport' "$work_root/docs-html/llms-full.txt"
-  trace_source_html="$work_root/docs-html/src/acceptance_lib/_internal/trace_acceptance.html"
+  uv run --no-sync ternforge-docops build html
+  docs_html="$product_target/docs/_build/html"
+  test -f "$docs_html/index.html"
+  test -f "$docs_html/api.html"
+  test -f "$docs_html/traceability.html"
+  test -f "$docs_html/auto_examples/index.html"
+  test -f "$docs_html/_images/sphx_glr_config_demo_thumb.png"
+  test -f "$docs_html/trace_acceptance.html"
+  test -f "$docs_html/local-pytest-evidence.html"
+  grep -F 'test_examples_import_without_network' "$docs_html/local-pytest-evidence.html"
+  test -s "$docs_html/llms.txt"
+  test -s "$docs_html/llms-full.txt"
+  test -s "$docs_html/trace_acceptance.html.md"
+  grep -F 'sphx_glr_config_demo_thumb.png' "$docs_html/auto_examples/index.html"
+  ! grep -F 'sphinx_gallery_tags' "$docs_html/auto_examples/config_demo.html"
+  grep -F 'REQ_TEMPLATE_TRACE' "$docs_html/trace_acceptance.html"
+  grep -F 'test_generated_traceability_transport' "$docs_html/trace_acceptance.html"
+  grep -F 'IMPL_TEMPLATE_TRACE' "$docs_html/traceability.html"
+  grep -F 'REQ_TEMPLATE_TRACE' "$docs_html/llms-full.txt"
+  grep -F 'IMPL_TEMPLATE_TRACE' "$docs_html/llms-full.txt"
+  grep -F 'test_generated_traceability_transport' "$docs_html/llms-full.txt"
+  trace_source_html="$docs_html/src/acceptance_lib/_internal/trace_acceptance.html"
   test -f "$trace_source_html"
   grep -F 'IMPL_TEMPLATE_TRACE' "$trace_source_html"
   if [[ "$(uname -s)" == Linux ]]; then
-    uv run --no-sync sphinx-build \
-      -W \
-      --keep-going \
-      -D plot_gallery=0 \
-      -D llms_txt_enabled=0 \
-      -b simplepdf \
-      docs \
-      "$work_root/docs-pdf"
-    test -s "$work_root/docs-pdf/release-dossier.pdf"
+    uv run --no-sync ternforge-docops build dossier
+    test -s "$product_target/docs/_build/dossier/release-dossier.pdf"
   fi
   rm -f "$trace_doc" "$trace_junit" "$local_junit" "$trace_test" "$trace_impl"
 
