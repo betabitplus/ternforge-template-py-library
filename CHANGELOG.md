@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.19.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.19.0...v1.19.1) (2026-09-03)
+
+
+### Bug Fixes
+
+* include Allure pytest evidence plugin ([#271](https://github.com/betabitplus/ternforge-template-py-library/issues/271)) ([6b5fa30](https://github.com/betabitplus/ternforge-template-py-library/commit/6b5fa303fd4957a4b4d47cef141d9e264a0a18a1))
+
 ## [1.19.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.18.1...v1.19.0) (2026-09-03)
 
 
