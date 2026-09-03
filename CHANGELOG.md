@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.19.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.18.1...v1.19.0) (2026-09-03)
+
+
+### Features
+
+* bootstrap DocOps in generated libraries ([#269](https://github.com/betabitplus/ternforge-template-py-library/issues/269)) ([0abb521](https://github.com/betabitplus/ternforge-template-py-library/commit/0abb52151dc8c20dd7006a2922196c7290a527ae))
+
 ## [1.18.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.18.0...v1.18.1) (2026-09-02)
 
 
