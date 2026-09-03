@@ -1,5 +1,7 @@
 [dependency-groups]
 dev = [
+  # Test runner, plugins, and retained execution evidence
+  "allure-pytest>=2.16,<3",
   # Security auditing
   "bandit>=1.9.4",
   "check-manifest>=0.51",

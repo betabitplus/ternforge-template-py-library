@@ -183,6 +183,7 @@ test ! -e "$product_target/.ternforge/docops/engineering.toml"
 grep -F 'ternforge-docops>=0.2.2,<0.3' "$product_target/pyproject.toml"
 grep -F 'tag = "v0.2.2"' "$product_target/pyproject.toml"
 grep -F 'tag = "v2.3.0"' "$product_target/pyproject.toml"
+grep -F 'allure-pytest>=2.16,<3' "$product_target/pyproject.toml"
 ! grep -F 'allure-pytest-bdd' "$product_target/pyproject.toml"
 ! grep -F 'sphinx-needs' "$product_target/pyproject.toml"
 grep -F 'extensions = ["ternforge_docops._api.sphinx_python"]' "$product_target/docs/conf.py"
@@ -250,7 +251,9 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
   uv run --no-sync bandit --recursive src
   uv run --no-sync interrogate --fail-under 100 src
   uv run --no-sync deptry .
-  uv run --no-sync pytest
+  allure_dir="$work_root/allure-results"
+  uv run --no-sync pytest --alluredir="$allure_dir"
+  test -n "$(find "$allure_dir" -maxdepth 1 -type f -print -quit)"
 
   trace_test="$work_root/test_traceability.py"
   trace_junit="$product_target/docs/_traceability/acceptance-junit.xml"
