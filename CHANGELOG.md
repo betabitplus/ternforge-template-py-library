@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.20.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.19.1...v1.20.0) (2026-09-05)
+
+
+### Features
+
+* adopt final DocOps template boundary ([#273](https://github.com/betabitplus/ternforge-template-py-library/issues/273)) ([9cd2237](https://github.com/betabitplus/ternforge-template-py-library/commit/9cd2237ced428cf46870bd544ad751ca2f5be8db))
+
 ## [1.19.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.19.0...v1.19.1) (2026-09-03)
 
 
