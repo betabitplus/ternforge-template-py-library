@@ -137,7 +137,6 @@ for target in "$default_target" "$product_target" "$tooling_target"; do
   grep -F 'allure-results/' "$target/.gitignore"
   grep -F 'allure-report/' "$target/.gitignore"
   grep -F 'test-results/' "$target/.gitignore"
-  grep -F 'docs/_traceability/local-pytest.xml' "$target/.gitignore"
   grep -F 'extend-ignore = E203,E501' "$target/.flake8"
   grep -F 'extend-exclude = [ "experiments/**/report/*.ipynb" ]' "$target/pyproject.toml"
   grep -F 'lint.per-file-ignores."experiments/*" = [' "$target/pyproject.toml"
@@ -168,8 +167,8 @@ grep -F '"useblocks.ubcode"' "$product_target/.vscode/extensions.json"
 test -f "$product_target/docs/conf.py"
 test -f "$product_target/docs/index.md"
 test -f "$product_target/docs/api.md"
-test -f "$product_target/docs/traceability.rst"
-test -f "$product_target/docs/local-pytest-evidence.rst"
+test ! -e "$product_target/docs/traceability.rst"
+test ! -e "$product_target/docs/local-pytest-evidence.rst"
 test -f "$product_target/ubproject.toml"
 grep -F 'index_on_save = true' "$product_target/ubproject.toml"
 test ! -e "$product_target/docs/_static/gallery-default.svg"
@@ -180,14 +179,15 @@ test ! -e "$product_target/tests/acceptance_lib/e2e"
 test ! -e "$product_target/docs/acceptance_lib/verification"
 test ! -e "$product_target/docs/_traceability/schemas.json"
 test ! -e "$product_target/.ternforge/docops/engineering.toml"
-grep -F 'ternforge-docops>=0.2.2,<0.3' "$product_target/pyproject.toml"
-grep -F 'tag = "v0.2.2"' "$product_target/pyproject.toml"
+grep -F 'ternforge-docops>=0.3.1,<0.4' "$product_target/pyproject.toml"
+grep -F 'tag = "v0.3.1"' "$product_target/pyproject.toml"
 grep -F 'tag = "v2.3.0"' "$product_target/pyproject.toml"
 grep -F 'allure-pytest>=2.16,<3' "$product_target/pyproject.toml"
 ! grep -F 'allure-pytest-bdd' "$product_target/pyproject.toml"
 ! grep -F 'sphinx-needs' "$product_target/pyproject.toml"
 grep -F 'extensions = ["ternforge_docops._api.sphinx_python"]' "$product_target/docs/conf.py"
-grep -F 'exclude_patterns.append("local-pytest-evidence.rst")' "$product_target/docs/conf.py"
+! grep -F 'needs_string_links' "$product_target/docs/conf.py"
+! grep -F 'local-pytest-evidence' "$product_target/docs/conf.py"
 grep -F 'extend = ".ternforge/docops/engineering.toml"' "$product_target/ubproject.toml"
 grep -F 'run.core = "ctrace"' "$product_target/pyproject.toml"
 grep -F 'revision-pinned `verifies` reference' "$product_target/AGENTS.md"
@@ -211,7 +211,7 @@ assert pyproject["project"]["version"] == manifest["."]
 assert pyproject["project"]["name"] == "acceptance-lib"
 assert pyproject["tool"]["ternforge"]["primary_package"] == "acceptance_lib"
 assert re.fullmatch(r"==\d+\.\d+\.\d+", pyproject["tool"]["uv"]["required-version"])
-assert "ternforge-docops>=0.2.2,<0.3" in pyproject["dependency-groups"]["docs"]
+assert "ternforge-docops>=0.3.1,<0.4" in pyproject["dependency-groups"]["docs"]
 assert ubproject["extend"] == ".ternforge/docops/engineering.toml"
 assert ubproject["codelinks"]["local_url_field"] == "source_url"
 ubconnect = ubproject["ubconnect"]
@@ -256,8 +256,7 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
   test -n "$(find "$allure_dir" -maxdepth 1 -type f -print -quit)"
 
   trace_test="$work_root/test_traceability.py"
-  trace_junit="$product_target/docs/_traceability/acceptance-junit.xml"
-  local_junit="$product_target/docs/_traceability/local-pytest.xml"
+  trace_junit="$work_root/acceptance-junit.xml"
   trace_doc="$product_target/docs/trace_acceptance.rst"
   trace_impl="$product_target/src/acceptance_lib/_internal/trace_acceptance.py"
   cat >"$trace_impl" <<'PY'
@@ -281,10 +280,6 @@ PY
     -o ternforge_traceability=true \
     "$trace_test" \
     --junitxml="$trace_junit"
-  uv run --no-sync pytest \
-    --no-cov \
-    tests/test_examples.py \
-    --junitxml="$local_junit"
   cat >"$trace_doc" <<'RST'
 :orphan:
 
@@ -305,13 +300,8 @@ Traceability acceptance
    :required_evidence: impl;integration
    :derives: FEAT_TEMPLATE_TRACE
 
-.. test-file:: Pytest trace evidence
-   :id: PYTEST_TEMPLATE_TRACE
-   :file: _traceability/acceptance-junit.xml
-   :auto_suites:
-   :auto_cases:
 RST
-  uv run --no-sync ternforge-docops build html
+  uv run --no-sync ternforge-docops build html --junit="$trace_junit"
   docs_html="$product_target/docs/_build/html"
   test -f "$docs_html/index.html"
   test -f "$docs_html/api.html"
@@ -319,15 +309,16 @@ RST
   test -f "$docs_html/auto_examples/index.html"
   test -f "$docs_html/_images/sphx_glr_config_demo_thumb.png"
   test -f "$docs_html/trace_acceptance.html"
-  test -f "$docs_html/local-pytest-evidence.html"
-  grep -F 'test_examples_import_without_network' "$docs_html/local-pytest-evidence.html"
+  test -f "$docs_html/ternforge-test-evidence.html"
+  grep -F 'test_generated_traceability_transport' "$docs_html/ternforge-test-evidence.html"
+  test ! -e "$product_target/docs/traceability.rst"
+  test ! -e "$product_target/docs/ternforge-test-evidence.rst"
   test -s "$docs_html/llms.txt"
   test -s "$docs_html/llms-full.txt"
   test -s "$docs_html/trace_acceptance.html.md"
   grep -F 'sphx_glr_config_demo_thumb.png' "$docs_html/auto_examples/index.html"
   ! grep -F 'sphinx_gallery_tags' "$docs_html/auto_examples/config_demo.html"
   grep -F 'REQ_TEMPLATE_TRACE' "$docs_html/trace_acceptance.html"
-  grep -F 'test_generated_traceability_transport' "$docs_html/trace_acceptance.html"
   grep -F 'IMPL_TEMPLATE_TRACE' "$docs_html/traceability.html"
   grep -F 'REQ_TEMPLATE_TRACE' "$docs_html/llms-full.txt"
   grep -F 'IMPL_TEMPLATE_TRACE' "$docs_html/llms-full.txt"
@@ -336,10 +327,10 @@ RST
   test -f "$trace_source_html"
   grep -F 'IMPL_TEMPLATE_TRACE' "$trace_source_html"
   if [[ "$(uname -s)" == Linux ]]; then
-    uv run --no-sync ternforge-docops build dossier
+    uv run --no-sync ternforge-docops build dossier --junit="$trace_junit"
     test -s "$product_target/docs/_build/dossier/release-dossier.pdf"
   fi
-  rm -f "$trace_doc" "$trace_junit" "$local_junit" "$trace_test" "$trace_impl"
+  rm -f "$trace_doc" "$trace_junit" "$trace_test" "$trace_impl"
 
   requirements="$work_root/runtime-requirements.txt"
   uv export \
