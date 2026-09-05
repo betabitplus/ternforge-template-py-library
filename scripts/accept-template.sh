@@ -159,8 +159,8 @@ done
 
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
-grep -F 'python-library.yml@d96ae241cb86351325d7ce7d9dfc3b3f1aa4101d # v5.7.2' "$product_target/.github/workflows/ci.yml"
-grep -F 'python-library-docs.yml@d96ae241cb86351325d7ce7d9dfc3b3f1aa4101d # v5.7.2' "$product_target/.github/workflows/docs.yml"
+grep -F 'python-library.yml@f47ec5020e61790a5d5266e5c770380c4f2f51d2 # v5.8.0' "$product_target/.github/workflows/ci.yml"
+grep -F 'python-library-docs.yml@f47ec5020e61790a5d5266e5c770380c4f2f51d2 # v5.8.0' "$product_target/.github/workflows/docs.yml"
 grep -F 'release-dossier: true' "$product_target/.github/workflows/docs.yml"
 grep -F '"ChinmaySingh.gherkin-lens"' "$product_target/.vscode/extensions.json"
 grep -F '"useblocks.ubcode"' "$product_target/.vscode/extensions.json"
@@ -179,8 +179,8 @@ test ! -e "$product_target/tests/acceptance_lib/e2e"
 test ! -e "$product_target/docs/acceptance_lib/verification"
 test ! -e "$product_target/docs/_traceability/schemas.json"
 test ! -e "$product_target/.ternforge/docops/engineering.toml"
-grep -F 'ternforge-docops>=0.3.1,<0.4' "$product_target/pyproject.toml"
-grep -F 'tag = "v0.3.1"' "$product_target/pyproject.toml"
+grep -F 'ternforge-docops>=0.4.1,<0.5' "$product_target/pyproject.toml"
+grep -F 'tag = "v0.4.1"' "$product_target/pyproject.toml"
 grep -F 'tag = "v2.3.0"' "$product_target/pyproject.toml"
 grep -F 'allure-pytest>=2.16,<3' "$product_target/pyproject.toml"
 ! grep -F 'allure-pytest-bdd' "$product_target/pyproject.toml"
@@ -211,7 +211,7 @@ assert pyproject["project"]["version"] == manifest["."]
 assert pyproject["project"]["name"] == "acceptance-lib"
 assert pyproject["tool"]["ternforge"]["primary_package"] == "acceptance_lib"
 assert re.fullmatch(r"==\d+\.\d+\.\d+", pyproject["tool"]["uv"]["required-version"])
-assert "ternforge-docops>=0.3.1,<0.4" in pyproject["dependency-groups"]["docs"]
+assert "ternforge-docops>=0.4.1,<0.5" in pyproject["dependency-groups"]["docs"]
 assert ubproject["extend"] == ".ternforge/docops/engineering.toml"
 assert ubproject["codelinks"]["local_url_field"] == "source_url"
 ubconnect = ubproject["ubconnect"]
