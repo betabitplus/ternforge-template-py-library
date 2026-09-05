@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.21.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.20.0...v1.21.0) (2026-09-05)
+
+
+### Features
+
+* adopt DocOps CI boundary ([#275](https://github.com/betabitplus/ternforge-template-py-library/issues/275)) ([ff22ed1](https://github.com/betabitplus/ternforge-template-py-library/commit/ff22ed127ea53693a5325f722676cc724687b976))
+
 ## [1.20.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.19.1...v1.20.0) (2026-09-05)
 
 
