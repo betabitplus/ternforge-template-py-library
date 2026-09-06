@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.21.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.21.3...v1.21.4) (2026-09-06)
+
+
+### Bug Fixes
+
+* adopt cleaned tooling releases ([#283](https://github.com/betabitplus/ternforge-template-py-library/issues/283)) ([d0dc07b](https://github.com/betabitplus/ternforge-template-py-library/commit/d0dc07be032f059ce5d1d2370df14a99d52f43cb))
+
 ## [1.21.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.21.2...v1.21.3) (2026-09-06)
 
 
