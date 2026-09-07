@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.21.5](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.21.4...v1.21.5) (2026-09-07)
+
+
+### Bug Fixes
+
+* align self release workflow ([#285](https://github.com/betabitplus/ternforge-template-py-library/issues/285)) ([944e1ae](https://github.com/betabitplus/ternforge-template-py-library/commit/944e1ae4ae8dc4fa97f4a920f585e84247f31f69))
+
 ## [1.21.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.21.3...v1.21.4) (2026-09-06)
 
 
