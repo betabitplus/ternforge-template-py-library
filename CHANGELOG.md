@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.25.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.25.0...v1.25.1) (2026-09-12)
+
+
+### Bug Fixes
+
+* adopt template components 1.29.1 ([#304](https://github.com/betabitplus/ternforge-template-py-library/issues/304)) ([905ab78](https://github.com/betabitplus/ternforge-template-py-library/commit/905ab78f1b5681757f86b929863f6ca606285a3e))
+
 ## [1.25.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.24.4...v1.25.0) (2026-09-12)
 
 
