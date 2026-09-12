@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.24.0...v1.24.1) (2026-09-12)
+
+
+### Bug Fixes
+
+* accept DocOps complementary evidence release ([#294](https://github.com/betabitplus/ternforge-template-py-library/issues/294)) ([92f7b7f](https://github.com/betabitplus/ternforge-template-py-library/commit/92f7b7ffd87c594c95b3ed91421d0619966ea8de))
+
 ## [1.24.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.23.0...v1.24.0) (2026-09-12)
 
 
