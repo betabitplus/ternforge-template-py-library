@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.24.2...v1.24.3) (2026-09-12)
+
+
+### Bug Fixes
+
+* accept DocOps SimplePDF normalization ([#298](https://github.com/betabitplus/ternforge-template-py-library/issues/298)) ([0adf2a2](https://github.com/betabitplus/ternforge-template-py-library/commit/0adf2a2c1567f8360830fcfaafb2472097b28298))
+
 ## [1.24.2](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.24.1...v1.24.2) (2026-09-12)
 
 
