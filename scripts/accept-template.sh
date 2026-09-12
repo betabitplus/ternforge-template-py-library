@@ -184,9 +184,9 @@ test ! -e "$product_target/tests/acceptance_lib/e2e"
 test ! -e "$product_target/docs/acceptance_lib/verification"
 test ! -e "$product_target/docs/_traceability/schemas.json"
 test ! -e "$product_target/.ternforge/docops/engineering.toml"
-grep -F 'ternforge-docops>=0.11.0,<0.12' "$product_target/pyproject.toml"
-grep -F 'tag = "v0.11.0"' "$product_target/pyproject.toml"
-grep -F 'tag = "v2.5.0"' "$product_target/pyproject.toml"
+grep -F 'ternforge-docops>=0.12.0,<0.13' "$product_target/pyproject.toml"
+grep -F 'tag = "v0.12.0"' "$product_target/pyproject.toml"
+grep -F 'tag = "v2.7.0"' "$product_target/pyproject.toml"
 grep -F 'allure-pytest>=2.16,<3' "$product_target/pyproject.toml"
 ! grep -F 'allure-pytest-bdd' "$product_target/pyproject.toml"
 ! grep -F 'sphinx-needs' "$product_target/pyproject.toml"
@@ -203,6 +203,8 @@ grep -F 'pytest.mark.verifies("REQ_PUBLIC_PACKAGE_SURFACE[revision==1]")' "$prod
 grep -F 'pytest.mark.verifies("REQ_EXAMPLE_IMPORTABILITY[revision==1]")' "$product_target/tests/test_examples.py"
 grep -F 'revision-pinned `verifies` reference' "$product_target/AGENTS.md"
 grep -F 'minimum required evidence with `required_evidence`' "$product_target/AGENTS.md"
+grep -F 'Publish `substitute`, `replay`, or `direct` boundary interactions only when that relation was actually observed' "$product_target/AGENTS.md"
+grep -F 'retained Hypothesis runtime evidence establishes generated execution' "$product_target/AGENTS.md"
 uv run --python 3.13 python - "$product_target" <<'PY'
 from __future__ import annotations
 
@@ -223,7 +225,7 @@ assert pyproject["project"]["name"] == "acceptance-lib"
 assert pyproject["tool"]["ternforge"]["primary_package"] == "acceptance_lib"
 assert pyproject["tool"]["pytest"]["ini_options"]["ternforge_traceability"] is True
 assert re.fullmatch(r"==\d+\.\d+\.\d+", pyproject["tool"]["uv"]["required-version"])
-assert "ternforge-docops>=0.11.0,<0.12" in pyproject["dependency-groups"]["docs"]
+assert "ternforge-docops>=0.12.0,<0.13" in pyproject["dependency-groups"]["docs"]
 assert ubproject["extend"] == ".ternforge/docops/engineering.toml"
 assert ubproject["codelinks"]["local_url_field"] == "source_url"
 ubconnect = ubproject["ubconnect"]
@@ -263,32 +265,13 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
   uv run --no-sync bandit --recursive src
   uv run --no-sync interrogate --fail-under 100 src
   uv run --no-sync deptry .
-  trace_test="$work_root/test_traceability.py"
   trace_junit="$work_root/acceptance-junit.xml"
   trace_coverage="$work_root/acceptance-coverage.json"
   trace_coverage_file="$work_root/.coverage"
   allure_dir="$work_root/allure-results"
-  trace_doc="$product_target/docs/trace_acceptance.rst"
-  trace_impl="$product_target/src/acceptance_lib/_internal/trace_acceptance.py"
-  cat >"$trace_impl" <<'PY'
-"""Traceability acceptance implementation."""
-
-# @impl Generated source trace evidence, IMPL_TEMPLATE_TRACE, [REQ_TEMPLATE_TRACE[revision==1]]
-PY
-  uv run --no-sync ruff check "$trace_impl"
-  uv run --no-sync flake8 "$trace_impl"
-  cat >"$trace_test" <<'PY'
-import pytest
-
-
-@pytest.mark.verifies("REQ_TEMPLATE_TRACE[revision==1]")
-@pytest.mark.verification_kind("integration")
-def test_generated_traceability_transport() -> None:
-    assert True
-PY
+  rm -rf "$allure_dir"
   COVERAGE_FILE="$trace_coverage_file" uv run --no-sync pytest \
     tests \
-    "$trace_test" \
     --alluredir="$allure_dir" \
     --junitxml="$trace_junit" \
     --cov-context=test
@@ -297,27 +280,54 @@ PY
     --show-contexts \
     -o "$trace_coverage"
   test -s "$trace_coverage"
-  cat >"$trace_doc" <<'RST'
-:orphan:
+  uv run --no-sync python - "$allure_dir" "$trace_coverage" <<'PY'
+from __future__ import annotations
 
-Traceability acceptance
-=======================
+import json
+import pathlib
+import sys
 
-.. goal:: Generated project traceability
-   :id: GOAL_TEMPLATE_TRACE
+allure_dir = pathlib.Path(sys.argv[1])
+coverage_path = pathlib.Path(sys.argv[2])
 
-.. feature:: Import pytest trace evidence
-   :id: FEAT_TEMPLATE_TRACE
-   :derives: GOAL_TEMPLATE_TRACE
+observations = []
+for path in allure_dir.glob("*.json"):
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        continue
+    if payload.get("kind") == "test-execution":
+        observations.append(payload)
 
-.. req:: A traced pytest result is part of the requirements graph
-   :id: REQ_TEMPLATE_TRACE
-   :status: accepted
-   :revision: 1
-   :required_evidence: impl;integration
-   :derives: FEAT_TEMPLATE_TRACE
+assert observations, "generated project did not retain test-execution evidence"
+nodeids = {
+    str(item.get("payload", {}).get("nodeid") or ""): item.get("payload", {})
+    for item in observations
+}
+assert any("test_public_exports_resolve" in nodeid for nodeid in nodeids)
+assert any("test_install_config_sets_active_snapshot" in nodeid for nodeid in nodeids)
+assert any("test_examples_import_without_network" in nodeid for nodeid in nodeids)
+assert {payload.get("verification_kind") for payload in nodeids.values()} >= {
+    "unit",
+    "integration",
+}
+example = next(
+    payload
+    for nodeid, payload in nodeids.items()
+    if "test_examples_import_without_network" in nodeid
+)
+assert "hermetic" in example.get("markers", [])
 
-RST
+coverage = json.loads(coverage_path.read_text(encoding="utf-8"))
+contexts = {
+    context
+    for file_data in coverage.get("files", {}).values()
+    for values in file_data.get("contexts", {}).values()
+    for context in values
+}
+assert any("test_public_exports_resolve" in context for context in contexts)
+assert any("test_install_config_sets_active_snapshot" in context for context in contexts)
+PY
   uv run --no-sync ternforge-docops build portal \
     --junit="$trace_junit" \
     --allure-results="$allure_dir" \
@@ -325,27 +335,34 @@ RST
   docs_html="$product_target/docs/_build/html"
   test -f "$docs_html/index.html"
   test -f "$docs_html/api.html"
+  test -f "$docs_html/requirements.html"
   test -f "$docs_html/traceability.html"
   test -f "$docs_html/auto_examples/index.html"
   test -f "$docs_html/_images/sphx_glr_config_demo_thumb.png"
-  test -f "$docs_html/trace_acceptance.html"
   test -f "$docs_html/ternforge-test-evidence.html"
-  grep -F 'test_generated_traceability_transport' "$docs_html/ternforge-test-evidence.html"
+  grep -F 'test_public_exports_resolve' "$docs_html/ternforge-test-evidence.html"
+  grep -F 'test_install_config_sets_active_snapshot' "$docs_html/ternforge-test-evidence.html"
+  grep -F 'test_examples_import_without_network' "$docs_html/ternforge-test-evidence.html"
   test ! -e "$product_target/docs/traceability.rst"
   test ! -e "$product_target/docs/ternforge-test-evidence.rst"
+  test ! -e "$product_target/docs/trace_acceptance.rst"
+  test ! -e "$product_target/src/acceptance_lib/_internal/trace_acceptance.py"
   test -s "$docs_html/llms.txt"
   test -s "$docs_html/llms-full.txt"
-  test -s "$docs_html/trace_acceptance.html.md"
   grep -F 'sphx_glr_config_demo_thumb.png' "$docs_html/auto_examples/index.html"
   ! grep -F 'sphinx_gallery_tags' "$docs_html/auto_examples/config_demo.html"
-  grep -F 'REQ_TEMPLATE_TRACE' "$docs_html/trace_acceptance.html"
-  grep -F 'IMPL_TEMPLATE_TRACE' "$docs_html/traceability.html"
-  grep -F 'REQ_TEMPLATE_TRACE' "$docs_html/llms-full.txt"
-  grep -F 'IMPL_TEMPLATE_TRACE' "$docs_html/llms-full.txt"
-  grep -F 'test_generated_traceability_transport' "$docs_html/llms-full.txt"
-  trace_source_html="$docs_html/src/acceptance_lib/_internal/trace_acceptance.html"
+  grep -F 'REQ_PUBLIC_PACKAGE_SURFACE' "$docs_html/requirements.html"
+  grep -F 'REQ_CONFIG_LIFECYCLE' "$docs_html/requirements.html"
+  grep -F 'REQ_EXAMPLE_IMPORTABILITY' "$docs_html/requirements.html"
+  grep -F 'IMPL_PUBLIC_PACKAGE_SURFACE' "$docs_html/traceability.html"
+  grep -F 'IMPL_CONFIG_LOOKUP' "$docs_html/traceability.html"
+  grep -F 'REQ_PUBLIC_PACKAGE_SURFACE' "$docs_html/llms-full.txt"
+  grep -F 'IMPL_PUBLIC_PACKAGE_SURFACE' "$docs_html/llms-full.txt"
+  grep -F 'test_public_exports_resolve' "$docs_html/llms-full.txt"
+  ! grep -F 'REQ_TEMPLATE_TRACE' "$docs_html/llms-full.txt"
+  trace_source_html="$docs_html/src/acceptance_lib/__init__.html"
   test -f "$trace_source_html"
-  grep -F 'IMPL_TEMPLATE_TRACE' "$trace_source_html"
+  grep -F 'IMPL_PUBLIC_PACKAGE_SURFACE' "$trace_source_html"
   if [[ "$(uname -s)" == Linux ]]; then
     uv run --no-sync ternforge-docops build dossier \
       --junit="$trace_junit" \
@@ -353,13 +370,11 @@ RST
       --coverage="$trace_coverage"
     test -s "$product_target/docs/_build/dossier/release-dossier.pdf"
   fi
+  rm -rf "$allure_dir"
   rm -f \
-    "$trace_doc" \
     "$trace_junit" \
     "$trace_coverage" \
-    "$trace_coverage_file" \
-    "$trace_test" \
-    "$trace_impl"
+    "$trace_coverage_file"
 
   requirements="$work_root/runtime-requirements.txt"
   uv export \
