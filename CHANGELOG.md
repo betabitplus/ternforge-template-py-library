@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.24.3...v1.24.4) (2026-09-12)
+
+
+### Bug Fixes
+
+* accept DocOps renderer compatibility ([#300](https://github.com/betabitplus/ternforge-template-py-library/issues/300)) ([a5390df](https://github.com/betabitplus/ternforge-template-py-library/commit/a5390dfc1371c582831abb199ccf6e0103822d6c))
+
 ## [1.24.3](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.24.2...v1.24.3) (2026-09-12)
 
 
