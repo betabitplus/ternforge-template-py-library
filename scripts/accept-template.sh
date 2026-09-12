@@ -184,9 +184,9 @@ test ! -e "$product_target/tests/acceptance_lib/e2e"
 test ! -e "$product_target/docs/acceptance_lib/verification"
 test ! -e "$product_target/docs/_traceability/schemas.json"
 test ! -e "$product_target/.ternforge/docops/engineering.toml"
-grep -F 'ternforge-docops>=0.13.3,<0.14' "$product_target/pyproject.toml"
-grep -F 'tag = "v0.13.3"' "$product_target/pyproject.toml"
-grep -F 'tag = "v2.7.0"' "$product_target/pyproject.toml"
+grep -F 'ternforge-docops>=0.14,<0.15' "$product_target/pyproject.toml"
+grep -F 'tag = "v0.14.0"' "$product_target/pyproject.toml"
+grep -F 'tag = "v2.8.0"' "$product_target/pyproject.toml"
 grep -F 'allure-pytest>=2.16,<3' "$product_target/pyproject.toml"
 ! grep -F 'allure-pytest-bdd' "$product_target/pyproject.toml"
 ! grep -F 'sphinx-needs' "$product_target/pyproject.toml"
@@ -225,7 +225,7 @@ assert pyproject["project"]["name"] == "acceptance-lib"
 assert pyproject["tool"]["ternforge"]["primary_package"] == "acceptance_lib"
 assert pyproject["tool"]["pytest"]["ini_options"]["ternforge_traceability"] is True
 assert re.fullmatch(r"==\d+\.\d+\.\d+", pyproject["tool"]["uv"]["required-version"])
-assert "ternforge-docops>=0.13.3,<0.14" in pyproject["dependency-groups"]["docs"]
+assert "ternforge-docops>=0.14,<0.15" in pyproject["dependency-groups"]["docs"]
 assert ubproject["extend"] == ".ternforge/docops/engineering.toml"
 assert ubproject["codelinks"]["local_url_field"] == "source_url"
 ubconnect = ubproject["ubconnect"]
@@ -246,6 +246,10 @@ git -C "$product_target" remote add origin 'https://github.com/example/acceptanc
 )
 test -f "$product_target/.ternforge/docops/engineering.toml"
 test -f "$product_target/.ternforge/docops/schemas.json"
+grep -F 'directive = "producer"' "$product_target/.ternforge/docops/engineering.toml"
+grep -F '[needs.links.calibrates]' "$product_target/.ternforge/docops/engineering.toml"
+grep -F '"id": "producer-contract"' "$product_target/.ternforge/docops/schemas.json"
+grep -F '"id": "calibrates-source-contract"' "$product_target/.ternforge/docops/schemas.json"
 grep -F '"result": {"const": "passed"}' "$product_target/.ternforge/docops/schemas.json"
 git -C "$product_target" add --all
 git -C "$product_target" commit --no-verify -m 'test: prepare generated product acceptance'
