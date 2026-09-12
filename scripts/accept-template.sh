@@ -159,9 +159,9 @@ done
 
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
-grep -F 'python-library.yml@d68840e6fc5e67cb1ed852db8877ff6dc125ebdc # v5.9.0' "$product_target/.github/workflows/ci.yml"
-grep -F 'python-library-docs.yml@d68840e6fc5e67cb1ed852db8877ff6dc125ebdc # v5.9.0' "$product_target/.github/workflows/docs.yml"
-grep -F 'release@d68840e6fc5e67cb1ed852db8877ff6dc125ebdc # v5.9.0' "$product_target/.github/workflows/release.yml"
+grep -F 'python-library.yml@a994431aa8a90c76b1d07300a64926638496c696 # v5.9.1' "$product_target/.github/workflows/ci.yml"
+grep -F 'python-library-docs.yml@a994431aa8a90c76b1d07300a64926638496c696 # v5.9.1' "$product_target/.github/workflows/docs.yml"
+grep -F 'release@a994431aa8a90c76b1d07300a64926638496c696 # v5.9.1' "$product_target/.github/workflows/release.yml"
 grep -F 'release-dossier: true' "$product_target/.github/workflows/docs.yml"
 grep -F '"ChinmaySingh.gherkin-lens"' "$product_target/.vscode/extensions.json"
 grep -F '"useblocks.ubcode"' "$product_target/.vscode/extensions.json"
