@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.23.0...v1.24.0) (2026-09-12)
+
+
+### Features
+
+* adopt DocOps verification assurance map ([#292](https://github.com/betabitplus/ternforge-template-py-library/issues/292)) ([d6d3570](https://github.com/betabitplus/ternforge-template-py-library/commit/d6d3570d8e713bb1ccd2a4be0ed0349c63e5b24d))
+
 ## [1.23.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.22.0...v1.23.0) (2026-09-12)
 
 
