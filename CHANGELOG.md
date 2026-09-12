@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.2](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.24.1...v1.24.2) (2026-09-12)
+
+
+### Bug Fixes
+
+* accept infra CI docs evidence split ([#296](https://github.com/betabitplus/ternforge-template-py-library/issues/296)) ([116948c](https://github.com/betabitplus/ternforge-template-py-library/commit/116948cf2dd849234580bf649bc3bb70c8906549))
+
 ## [1.24.1](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.24.0...v1.24.1) (2026-09-12)
 
 
