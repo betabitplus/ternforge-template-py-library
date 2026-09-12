@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.25.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.24.4...v1.25.0) (2026-09-12)
+
+
+### Features
+
+* accept evidence assurance components ([#302](https://github.com/betabitplus/ternforge-template-py-library/issues/302)) ([448d8c7](https://github.com/betabitplus/ternforge-template-py-library/commit/448d8c70f98277fa9b5efdfcee68cdfe6638af0a))
+
 ## [1.24.4](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.24.3...v1.24.4) (2026-09-12)
 
 
