@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.21.5...v1.22.0) (2026-09-12)
+
+
+### Features
+
+* adopt assurance-ready template components ([#288](https://github.com/betabitplus/ternforge-template-py-library/issues/288)) ([f08038a](https://github.com/betabitplus/ternforge-template-py-library/commit/f08038a1d0911e520746970b44339cf2370904aa))
+
 ## [1.21.5](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.21.4...v1.21.5) (2026-09-07)
 
 
