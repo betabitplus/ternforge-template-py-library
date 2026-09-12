@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.23.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.22.0...v1.23.0) (2026-09-12)
+
+
+### Features
+
+* accept released assurance contract ([#290](https://github.com/betabitplus/ternforge-template-py-library/issues/290)) ([f262121](https://github.com/betabitplus/ternforge-template-py-library/commit/f26212163a37269f517b6c019045dc404b5e21f3))
+
 ## [1.22.0](https://github.com/betabitplus/ternforge-template-py-library/compare/v1.21.5...v1.22.0) (2026-09-12)
 
 
