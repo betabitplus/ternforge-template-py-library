@@ -159,14 +159,19 @@ done
 
 grep -F 'runtime-audit-exclude-package: "py-lib-runtime"' "$default_target/.github/workflows/ci.yml"
 grep -F 'runtime-audit-exclude-package: ""' "$tooling_target/.github/workflows/ci.yml"
-grep -F 'python-library.yml@f47ec5020e61790a5d5266e5c770380c4f2f51d2 # v5.8.0' "$product_target/.github/workflows/ci.yml"
-grep -F 'python-library-docs.yml@f47ec5020e61790a5d5266e5c770380c4f2f51d2 # v5.8.0' "$product_target/.github/workflows/docs.yml"
+grep -F 'python-library.yml@d68840e6fc5e67cb1ed852db8877ff6dc125ebdc # v5.9.0' "$product_target/.github/workflows/ci.yml"
+grep -F 'python-library-docs.yml@d68840e6fc5e67cb1ed852db8877ff6dc125ebdc # v5.9.0' "$product_target/.github/workflows/docs.yml"
+grep -F 'release@d68840e6fc5e67cb1ed852db8877ff6dc125ebdc # v5.9.0' "$product_target/.github/workflows/release.yml"
 grep -F 'release-dossier: true' "$product_target/.github/workflows/docs.yml"
 grep -F '"ChinmaySingh.gherkin-lens"' "$product_target/.vscode/extensions.json"
 grep -F '"useblocks.ubcode"' "$product_target/.vscode/extensions.json"
 test -f "$product_target/docs/conf.py"
 test -f "$product_target/docs/index.md"
 test -f "$product_target/docs/api.md"
+test -f "$product_target/docs/requirements.md"
+grep -F ':id: REQ_PUBLIC_PACKAGE_SURFACE' "$product_target/docs/requirements.md"
+grep -F ':id: REQ_CONFIG_LIFECYCLE' "$product_target/docs/requirements.md"
+grep -F ':id: REQ_EXAMPLE_IMPORTABILITY' "$product_target/docs/requirements.md"
 test ! -e "$product_target/docs/traceability.rst"
 test ! -e "$product_target/docs/local-pytest-evidence.rst"
 test -f "$product_target/ubproject.toml"
@@ -179,9 +184,9 @@ test ! -e "$product_target/tests/acceptance_lib/e2e"
 test ! -e "$product_target/docs/acceptance_lib/verification"
 test ! -e "$product_target/docs/_traceability/schemas.json"
 test ! -e "$product_target/.ternforge/docops/engineering.toml"
-grep -F 'ternforge-docops>=0.4.4,<0.5' "$product_target/pyproject.toml"
-grep -F 'tag = "v0.4.4"' "$product_target/pyproject.toml"
-grep -F 'tag = "v2.3.2"' "$product_target/pyproject.toml"
+grep -F 'ternforge-docops>=0.11.0,<0.12' "$product_target/pyproject.toml"
+grep -F 'tag = "v0.11.0"' "$product_target/pyproject.toml"
+grep -F 'tag = "v2.5.0"' "$product_target/pyproject.toml"
 grep -F 'allure-pytest>=2.16,<3' "$product_target/pyproject.toml"
 ! grep -F 'allure-pytest-bdd' "$product_target/pyproject.toml"
 ! grep -F 'sphinx-needs' "$product_target/pyproject.toml"
@@ -190,6 +195,12 @@ grep -F 'extensions = ["ternforge_docops._api.sphinx_python"]' "$product_target/
 ! grep -F 'local-pytest-evidence' "$product_target/docs/conf.py"
 grep -F 'extend = ".ternforge/docops/engineering.toml"' "$product_target/ubproject.toml"
 grep -F 'run.core = "ctrace"' "$product_target/pyproject.toml"
+grep -F 'ternforge_traceability = true' "$product_target/pyproject.toml"
+grep -F 'IMPL_PUBLIC_PACKAGE_SURFACE, [REQ_PUBLIC_PACKAGE_SURFACE[revision==1]]' "$product_target/src/acceptance_lib/__init__.py"
+grep -F 'IMPL_CONFIG_LOOKUP, [REQ_CONFIG_LIFECYCLE[revision==1]]' "$product_target/src/acceptance_lib/_internal/config/state.py"
+grep -F 'pytest.mark.verifies("REQ_CONFIG_LIFECYCLE[revision==1]")' "$product_target/tests/acceptance_lib/test_config_lifecycle.py"
+grep -F 'pytest.mark.verifies("REQ_PUBLIC_PACKAGE_SURFACE[revision==1]")' "$product_target/tests/acceptance_lib/test_public_package.py"
+grep -F 'pytest.mark.verifies("REQ_EXAMPLE_IMPORTABILITY[revision==1]")' "$product_target/tests/test_examples.py"
 grep -F 'revision-pinned `verifies` reference' "$product_target/AGENTS.md"
 grep -F 'minimum required evidence with `required_evidence`' "$product_target/AGENTS.md"
 uv run --python 3.13 python - "$product_target" <<'PY'
@@ -210,8 +221,9 @@ assert manifest["."] == "0.1.0"
 assert pyproject["project"]["version"] == manifest["."]
 assert pyproject["project"]["name"] == "acceptance-lib"
 assert pyproject["tool"]["ternforge"]["primary_package"] == "acceptance_lib"
+assert pyproject["tool"]["pytest"]["ini_options"]["ternforge_traceability"] is True
 assert re.fullmatch(r"==\d+\.\d+\.\d+", pyproject["tool"]["uv"]["required-version"])
-assert "ternforge-docops>=0.4.4,<0.5" in pyproject["dependency-groups"]["docs"]
+assert "ternforge-docops>=0.11.0,<0.12" in pyproject["dependency-groups"]["docs"]
 assert ubproject["extend"] == ".ternforge/docops/engineering.toml"
 assert ubproject["codelinks"]["local_url_field"] == "source_url"
 ubconnect = ubproject["ubconnect"]
@@ -251,12 +263,11 @@ git -C "$product_target" commit --no-verify -m 'test: prepare generated product 
   uv run --no-sync bandit --recursive src
   uv run --no-sync interrogate --fail-under 100 src
   uv run --no-sync deptry .
-  allure_dir="$work_root/allure-results"
-  uv run --no-sync pytest --alluredir="$allure_dir"
-  test -n "$(find "$allure_dir" -maxdepth 1 -type f -print -quit)"
-
   trace_test="$work_root/test_traceability.py"
   trace_junit="$work_root/acceptance-junit.xml"
+  trace_coverage="$work_root/acceptance-coverage.json"
+  trace_coverage_file="$work_root/.coverage"
+  allure_dir="$work_root/allure-results"
   trace_doc="$product_target/docs/trace_acceptance.rst"
   trace_impl="$product_target/src/acceptance_lib/_internal/trace_acceptance.py"
   cat >"$trace_impl" <<'PY'
@@ -275,11 +286,17 @@ import pytest
 def test_generated_traceability_transport() -> None:
     assert True
 PY
-  uv run --no-sync pytest \
-    --no-cov \
-    -o ternforge_traceability=true \
+  COVERAGE_FILE="$trace_coverage_file" uv run --no-sync pytest \
+    tests \
     "$trace_test" \
-    --junitxml="$trace_junit"
+    --alluredir="$allure_dir" \
+    --junitxml="$trace_junit" \
+    --cov-context=test
+  test -n "$(find "$allure_dir" -maxdepth 1 -type f -print -quit)"
+  COVERAGE_FILE="$trace_coverage_file" uv run --no-sync coverage json \
+    --show-contexts \
+    -o "$trace_coverage"
+  test -s "$trace_coverage"
   cat >"$trace_doc" <<'RST'
 :orphan:
 
@@ -301,7 +318,10 @@ Traceability acceptance
    :derives: FEAT_TEMPLATE_TRACE
 
 RST
-  uv run --no-sync ternforge-docops build html --junit="$trace_junit"
+  uv run --no-sync ternforge-docops build portal \
+    --junit="$trace_junit" \
+    --allure-results="$allure_dir" \
+    --coverage="$trace_coverage"
   docs_html="$product_target/docs/_build/html"
   test -f "$docs_html/index.html"
   test -f "$docs_html/api.html"
@@ -327,10 +347,19 @@ RST
   test -f "$trace_source_html"
   grep -F 'IMPL_TEMPLATE_TRACE' "$trace_source_html"
   if [[ "$(uname -s)" == Linux ]]; then
-    uv run --no-sync ternforge-docops build dossier --junit="$trace_junit"
+    uv run --no-sync ternforge-docops build dossier \
+      --junit="$trace_junit" \
+      --allure-results="$allure_dir" \
+      --coverage="$trace_coverage"
     test -s "$product_target/docs/_build/dossier/release-dossier.pdf"
   fi
-  rm -f "$trace_doc" "$trace_junit" "$trace_test" "$trace_impl"
+  rm -f \
+    "$trace_doc" \
+    "$trace_junit" \
+    "$trace_coverage" \
+    "$trace_coverage_file" \
+    "$trace_test" \
+    "$trace_impl"
 
   requirements="$work_root/runtime-requirements.txt"
   uv export \
