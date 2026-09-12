@@ -184,8 +184,8 @@ test ! -e "$product_target/tests/acceptance_lib/e2e"
 test ! -e "$product_target/docs/acceptance_lib/verification"
 test ! -e "$product_target/docs/_traceability/schemas.json"
 test ! -e "$product_target/.ternforge/docops/engineering.toml"
-grep -F 'ternforge-docops>=0.13.1,<0.14' "$product_target/pyproject.toml"
-grep -F 'tag = "v0.13.1"' "$product_target/pyproject.toml"
+grep -F 'ternforge-docops>=0.13.2,<0.14' "$product_target/pyproject.toml"
+grep -F 'tag = "v0.13.2"' "$product_target/pyproject.toml"
 grep -F 'tag = "v2.7.0"' "$product_target/pyproject.toml"
 grep -F 'allure-pytest>=2.16,<3' "$product_target/pyproject.toml"
 ! grep -F 'allure-pytest-bdd' "$product_target/pyproject.toml"
@@ -225,7 +225,7 @@ assert pyproject["project"]["name"] == "acceptance-lib"
 assert pyproject["tool"]["ternforge"]["primary_package"] == "acceptance_lib"
 assert pyproject["tool"]["pytest"]["ini_options"]["ternforge_traceability"] is True
 assert re.fullmatch(r"==\d+\.\d+\.\d+", pyproject["tool"]["uv"]["required-version"])
-assert "ternforge-docops>=0.13.1,<0.14" in pyproject["dependency-groups"]["docs"]
+assert "ternforge-docops>=0.13.2,<0.14" in pyproject["dependency-groups"]["docs"]
 assert ubproject["extend"] == ".ternforge/docops/engineering.toml"
 assert ubproject["codelinks"]["local_url_field"] == "source_url"
 ubconnect = ubproject["ubconnect"]
